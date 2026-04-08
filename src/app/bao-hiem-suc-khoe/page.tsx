@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import MainLayout from "@/components/MainLayout";
 
 export const metadata: Metadata = {
   title: "Bảo hiểm Sức khỏe - So sánh & Mua Online",
@@ -49,7 +48,7 @@ const brands = [
 
 export default function BaoHiemSucKhoePage() {
   return (
-    <MainLayout>
+    <>
       {/* Hero */}
       <div style={{ background: "linear-gradient(135deg, #4F46E5 0%, #1D4ED8 100%)", padding: "4rem 0", textAlign: "center", color: "white" }}>
         <div className="container">
@@ -105,6 +104,7 @@ export default function BaoHiemSucKhoePage() {
           <Link href="/lien-he/" className="btn-primary">🎯 Tư vấn miễn phí ngay</Link>
         </div>
       </div>
-    </MainLayout>
+    </>
   );
 }
+

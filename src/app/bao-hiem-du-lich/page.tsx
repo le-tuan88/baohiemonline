@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import MainLayout from "@/components/MainLayout";
 
 export const metadata: Metadata = {
   title: "Bảo hiểm Du lịch - Quốc tế & Trong nước",
@@ -27,7 +26,7 @@ const groups = [
 
 export default function DuLichPage() {
   return (
-    <MainLayout>
+    <>
       <div style={{ background: "linear-gradient(135deg, #0EA5E9 0%, #0284C7 100%)", padding: "4rem 0", textAlign: "center", color: "white" }}>
         <div className="container">
           <div style={{ fontSize: "3.5rem", marginBottom: "1rem" }}>✈️</div>
@@ -67,6 +66,7 @@ export default function DuLichPage() {
           </div>
         </div>
       </section>
-    </MainLayout>
+    </>
   );
 }
+

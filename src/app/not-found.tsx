@@ -1,9 +1,8 @@
 import Link from "next/link";
-import MainLayout from "@/components/MainLayout";
 
 export default function NotFound() {
   return (
-    <MainLayout>
+    <>
       <div
         style={{
           minHeight: "60vh", display: "flex", alignItems: "center", justifyContent: "center",
@@ -32,6 +31,7 @@ export default function NotFound() {
           </div>
         </div>
       </div>
-    </MainLayout>
+    </>
   );
 }
+

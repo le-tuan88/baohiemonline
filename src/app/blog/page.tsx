@@ -2,7 +2,6 @@ export const dynamic = 'force-dynamic';
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import MainLayout from "@/components/MainLayout";
 import { getAllBlogPosts } from "@/lib/wp-api";
 
 export const metadata: Metadata = {
@@ -20,7 +19,7 @@ export default async function BlogPage() {
   const posts = await getAllBlogPosts(50);
 
   return (
-    <MainLayout>
+    <>
       {/* Header */}
       <div style={{ background: "linear-gradient(135deg, var(--primary) 0%, #1e3a6e 100%)", padding: "3.5rem 0", textAlign: "center" }}>
         <div className="container">
@@ -80,6 +79,7 @@ export default async function BlogPage() {
           )}
         </div>
       </section>
-    </MainLayout>
+    </>
   );
 }
+

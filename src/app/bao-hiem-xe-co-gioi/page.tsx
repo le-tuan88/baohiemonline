@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import MainLayout from "@/components/MainLayout";
 
 export const metadata: Metadata = {
   title: "Bảo hiểm Xe cơ giới - Ô tô, Xe máy",
@@ -52,7 +51,7 @@ const groups = [
 
 export default function XeCoGioiPage() {
   return (
-    <MainLayout>
+    <>
       <div style={{ background: "linear-gradient(135deg, #0D9488 0%, #0F766E 100%)", padding: "4rem 0", textAlign: "center", color: "white" }}>
         <div className="container">
           <div style={{ fontSize: "3.5rem", marginBottom: "1rem" }}>🚗</div>
@@ -93,6 +92,7 @@ export default function XeCoGioiPage() {
           </div>
         </div>
       </section>
-    </MainLayout>
+    </>
   );
 }
+

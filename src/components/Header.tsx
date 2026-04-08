@@ -234,8 +234,15 @@ export default function Header() {
     <>
       {/* Search Overlay */}
       {searchOpen && (
-        <div className="fixed inset-0 z-[100] bg-slate-900/60 backdrop-blur-md flex justify-center transition-all animate-fadeInUp" style={{ alignItems: "flex-start", paddingTop: "80px", paddingLeft: "1rem", paddingRight: "1rem", animationDuration: "0.2s" }}>
-          <div style={{ background: "white", borderRadius: 20, width: "100%", maxWidth: 680, boxShadow: "0 25px 60px rgba(0,0,0,0.2)", overflow: "hidden" }}>
+        <div 
+          className="fixed inset-0 z-[100] bg-slate-900/60 backdrop-blur-md flex justify-center transition-all animate-fadeInUp" 
+          style={{ alignItems: "flex-start", paddingTop: "80px", paddingLeft: "1rem", paddingRight: "1rem", animationDuration: "0.2s" }}
+          onClick={() => setSearchOpen(false)}
+        >
+          <div 
+            style={{ background: "white", borderRadius: 20, width: "100%", maxWidth: 680, boxShadow: "0 25px 60px rgba(0,0,0,0.2)", overflow: "hidden" }}
+            onClick={(e) => e.stopPropagation()}
+          >
             <form onSubmit={handleSearch} style={{ display: "flex", gap: "0.75rem", padding: "1.25rem" }}>
               <input
                 ref={searchRef}

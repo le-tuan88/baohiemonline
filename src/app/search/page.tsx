@@ -4,7 +4,6 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useState, Suspense } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import MainLayout from "@/components/MainLayout";
 
 interface Post {
   id: string; title: string; slug: string; date: string; excerpt?: string;
@@ -76,10 +75,11 @@ function SearchResults() {
 
 export default function SearchPage() {
   return (
-    <MainLayout>
+    <>
       <Suspense fallback={<div className="container" style={{ padding: "3rem" }}>Đang tải...</div>}>
         <SearchResults />
       </Suspense>
-    </MainLayout>
+    </>
   );
 }
+

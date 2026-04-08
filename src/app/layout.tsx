@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import MainLayout from "@/components/MainLayout";
 
 const siteName = "Bảo Hiểm Online - Môi giới bảo hiểm uy tín số 1";
 const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://baohiem.online";
@@ -69,7 +70,9 @@ export default function RootLayout({
         />
         <meta name="theme-color" content="#0F2044" />
       </head>
-      <body>{children}</body>
+      <body>
+        <MainLayout>{children}</MainLayout>
+      </body>
     </html>
   );
 }

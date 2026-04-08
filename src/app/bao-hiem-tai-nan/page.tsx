@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import MainLayout from "@/components/MainLayout";
 
 export const metadata: Metadata = {
   title: "Bảo hiểm Tai nạn - Cá nhân & Tổ chức",
@@ -37,7 +36,7 @@ const brands = [
 
 export default function TaiNanPage() {
   return (
-    <MainLayout>
+    <>
       <div style={{ background: "linear-gradient(135deg, #E05C1A 0%, #c94c10 100%)", padding: "4rem 0", textAlign: "center", color: "white" }}>
         <div className="container">
           <div style={{ fontSize: "3.5rem", marginBottom: "1rem" }}>🛡️</div>
@@ -78,6 +77,7 @@ export default function TaiNanPage() {
           </div>
         </div>
       </section>
-    </MainLayout>
+    </>
   );
 }
+

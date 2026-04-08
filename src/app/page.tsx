@@ -2,7 +2,6 @@ export const dynamic = 'force-dynamic';
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import MainLayout from "@/components/MainLayout";
 import { getHomePosts } from "@/lib/wp-api";
 
 export const metadata: Metadata = {
@@ -112,7 +111,7 @@ export default async function HomePage() {
   const posts = await getHomePosts();
 
   return (
-    <MainLayout>
+    <>
       {/* ===== HERO ===== */}
       <section
         style={{
@@ -555,6 +554,7 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
-    </MainLayout>
+    </>
   );
 }
+

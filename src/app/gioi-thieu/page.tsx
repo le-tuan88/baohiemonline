@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import MainLayout from "@/components/MainLayout";
 
 export const metadata: Metadata = {
   title: "Về chúng tôi - Bảo Hiểm Online",
@@ -10,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function GioiThieuPage() {
   return (
-    <MainLayout>
+    <>
       <div style={{ background: "linear-gradient(135deg, var(--primary) 0%, #1e3a6e 100%)", padding: "4rem 0", textAlign: "center", color: "white" }}>
         <div className="container">
           <h1 style={{ fontFamily: "'Be Vietnam Pro', sans-serif", fontWeight: 900, fontSize: "clamp(1.75rem, 4vw, 2.5rem)", marginBottom: "0.75rem" }}>
@@ -79,6 +78,7 @@ export default function GioiThieuPage() {
           </div>
         </div>
       </section>
-    </MainLayout>
+    </>
   );
 }
+

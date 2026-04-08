@@ -2,7 +2,6 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import MainLayout from "@/components/MainLayout";
 import { getAllNodeUris, getNodeByUri, BASE_URL } from "@/lib/wp-api";
 
 export const dynamicParams = true;
@@ -58,7 +57,7 @@ export default async function SlugPage({ params }: Props) {
   // Category page
   if (node.__typename === "Category") {
     return (
-      <MainLayout>
+      <>
         <div className="container" style={{ padding: "3rem 1.5rem" }}>
           <div style={{ marginBottom: "1rem" }}>
             <Link href="/" style={{ color: "var(--text-muted)", fontSize: "0.875rem" }}>Trang chủ</Link>
@@ -70,14 +69,14 @@ export default async function SlugPage({ params }: Props) {
             <div className="wp-content" dangerouslySetInnerHTML={{ __html: node.description }} />
           )}
         </div>
-      </MainLayout>
+      </>
     );
   }
 
   // Page
   if (node.__typename === "Page") {
     return (
-      <MainLayout>
+      <>
         <div className="container" style={{ padding: "3rem 1.5rem", maxWidth: 860 }}>
           <h1 style={{ fontFamily: "'Be Vietnam Pro', sans-serif", fontWeight: 800, marginBottom: "2rem" }}>{node.title}</h1>
           {node.featuredImage?.node?.mediaItemUrl && (
@@ -87,7 +86,7 @@ export default async function SlugPage({ params }: Props) {
           )}
           <div className="wp-content" dangerouslySetInnerHTML={{ __html: node.content || "" }} />
         </div>
-      </MainLayout>
+      </>
     );
   }
 
@@ -96,7 +95,7 @@ export default async function SlugPage({ params }: Props) {
   const canonical = post.seo?.canonicalUrl || `${BASE_URL}/${slug}/`;
 
   return (
-    <MainLayout>
+    <>
       <article>
         {/* Post header */}
         <div style={{ background: "var(--bg-light)", padding: "3rem 0 0", borderBottom: "1px solid var(--border)" }}>
@@ -183,6 +182,6 @@ export default async function SlugPage({ params }: Props) {
           </div>
         </div>
       </article>
-    </MainLayout>
+    </>
   );
 }
