@@ -348,16 +348,16 @@ export default function Header() {
             </Link>
 
             {/* Desktop Nav */}
-            <nav className="hidden lg:flex items-center h-full">
+            <nav className="hidden lg:flex items-center h-full lg:gap-2 xl:gap-5">
               {navMenu.map((item) => (
                 <div
                   key={item.id}
-                  className="h-full font-600 flex items-center px-1 relative"
+                  className="h-full font-600 flex items-center relative group"
                   onMouseEnter={() => setActiveMenu(item.id)}
                   onMouseLeave={() => setActiveMenu(null)}
                 >
                   <button
-                    className={`nav-link h-full flex items-center gap-1.5 px-3 
+                    className={`nav-link h-full flex items-center gap-2 px-2 xl:px-3
                       font-semibold text-[0.9375rem] transition-colors duration-200
                       ${activeMenu === item.id ? "text-slate-900 active" : "text-slate-600 hover:text-slate-900"}
                     `}
