@@ -398,7 +398,7 @@ export default function Header() {
                           }}
                         >
                           {item.megaMenu.map((group, gi) => (
-                            <div key={gi} className="p-6" style={{ background: gi % 2 !== 0 ? "#f8fafc" : "white" }}>
+                            <div key={gi} style={{ padding: "2rem 2.5rem", background: gi % 2 !== 0 ? "#f8fafc" : "white" }}>
                               <Link
                                 href={group.groupHref}
                                 className="inline-block group/title"
