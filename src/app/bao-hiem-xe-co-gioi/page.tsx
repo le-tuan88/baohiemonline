@@ -1,98 +1,71 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import InsuranceCategoryPage from "@/components/InsuranceCategoryPage";
 
 export const metadata: Metadata = {
-  title: "Bảo hiểm Xe cơ giới - Ô tô, Xe máy",
-  description: "So sánh bảo hiểm vật chất ô tô, TNDS ô tô và TNDS xe máy từ Bảo Việt, PVI, MIC, Bảo Minh, PJICO, DBV với giá tốt nhất.",
+  title: "Bảo hiểm Xe cơ giới - Ô tô & Xe máy",
+  description: "Bảo hiểm vật chất ô tô, TNDS bắt buộc từ các hãng Bảo Việt, MIC, PVI, PTI. Bồi thường nhanh, cứu hộ miễn phí 24/7.",
   alternates: { canonical: "https://baohiem.online/bao-hiem-xe-co-gioi/" },
 };
 
-const groups = [
+const brandsData = [
   {
-    title: "Bảo hiểm vật chất ô tô",
-    icon: "🚗",
+    name: "Vật chất Ô tô (2 chiều)",
+    color: "#2563EB",
     href: "/bao-hiem-xe-co-gioi/vat-chat-o-to/",
-    desc: "Bảo hiểm thân xe, vật chất theo giá trị thị trường",
-    brands: [
-      { name: "Bảo Việt", href: "/bao-hiem-xe-co-gioi/vat-chat-o-to/bao-viet/" },
-      { name: "PVI", href: "/bao-hiem-xe-co-gioi/vat-chat-o-to/pvi/" },
-      { name: "MIC", href: "/bao-hiem-xe-co-gioi/vat-chat-o-to/mic/" },
-      { name: "Bảo Minh", href: "/bao-hiem-xe-co-gioi/vat-chat-o-to/bao-minh/" },
-      { name: "PJICO", href: "/bao-hiem-xe-co-gioi/vat-chat-o-to/pjico/" },
-      { name: "DBV", href: "/bao-hiem-xe-co-gioi/vat-chat-o-to/dbv/" },
+    desc: "Bảo hiểm tự nguyện chi trả cho các hư hỏng, xước xát, tai nạn, thủy kích của chính chiếc xe của bạn.",
+    products: [
+      { title: "Vật chất Ô tô Bảo Việt", href: "/bao-hiem-xe-co-gioi/vat-chat-o-to-bao-viet/", desc: "Giám định viên có mặt trong 30p. Có liên kết hầu hết Gara chính hãng (Toyota, Hyundai, Ford...)." },
+      { title: "Vật chất Ô tô MIC", href: "/bao-hiem-xe-co-gioi/vat-chat-o-to-mic/", desc: "Giá tốt nhất phân khúc, quy trình nhận hồ sơ qua app chụp hình ảnh biển số tự động." },
+      { title: "Vật chất Ô tô PVI", href: "/bao-hiem-xe-co-gioi/vat-chat-o-to-pvi/", desc: "Chuyên gia bồi thường ngập nước, thủy kích uy tín nhất cho xe xăng và xe điện VinFast." },
+      { title: "Vật chất Ô tô Bảo Minh", href: "/bao-hiem-xe-co-gioi/vat-chat-o-to-bao-minh/", desc: "Tặng kèm bảo hiểm tai nạn người ngồi trên xe. Phạm vi bảo lãnh rộng khắp 63 tỉnh thành." }
     ],
   },
   {
-    title: "Bảo hiểm TNDS ô tô",
-    icon: "🚙",
+    name: "TNDS Ô tô (Trách nhiệm Dân sự bắt buộc)",
+    color: "#059669",
     href: "/bao-hiem-xe-co-gioi/tnds-o-to/",
-    desc: "Bảo hiểm trách nhiệm dân sự bắt buộc cho ô tô",
-    brands: [
-      { name: "Bảo Việt", href: "/bao-hiem-xe-co-gioi/tnds-o-to/bao-viet/" },
-      { name: "PVI", href: "/bao-hiem-xe-co-gioi/tnds-o-to/pvi/" },
-      { name: "MIC", href: "/bao-hiem-xe-co-gioi/tnds-o-to/mic/" },
-      { name: "Bảo Minh", href: "/bao-hiem-xe-co-gioi/tnds-o-to/bao-minh/" },
-      { name: "PJICO", href: "/bao-hiem-xe-co-gioi/tnds-o-to/pjico/" },
-      { name: "DBV", href: "/bao-hiem-xe-co-gioi/tnds-o-to/dbv/" },
+    desc: "Bảo hiểm bắt buộc theo luật định để đi đường không bị CSGT phạt. Đền bù cho BÊN THỨ BA khi xảy ra va chạm.",
+    products: [
+      { title: "TNDS Ô tô (Xe 4-5 chỗ)", href: "/bao-hiem-xe-co-gioi/tnds-o-to-4-cho/", desc: "Áp dụng cho xe gia đình, xe không kinh doanh vận tải. Phí từ ~480.000đ/năm." },
+      { title: "TNDS Ô tô (Xe 7 chỗ)", href: "/bao-hiem-xe-co-gioi/tnds-o-to-7-cho/", desc: "Thuộc nhóm xe MPV, SUV không kinh doanh (Innova, Everest...)." },
+      { title: "TNDS Ô tô (KD Vận Tải, Taxi)", href: "/bao-hiem-xe-co-gioi/tnds-o-to-kinh-doanh/", desc: "Bắt buộc đối với xe chạy Grab, Taxi, xe khách chuyên tuyến." }
     ],
   },
   {
-    title: "Bảo hiểm TNDS xe máy",
-    icon: "🏍️",
-    href: "/bao-hiem-xe-co-gioi/tnds-xe-may/",
-    desc: "Bảo hiểm trách nhiệm dân sự bắt buộc cho xe máy",
-    brands: [
-      { name: "Bảo Việt", href: "/bao-hiem-xe-co-gioi/tnds-xe-may/bao-viet/" },
-      { name: "PVI", href: "/bao-hiem-xe-co-gioi/tnds-xe-may/pvi/" },
-      { name: "MIC", href: "/bao-hiem-xe-co-gioi/tnds-xe-may/mic/" },
+    name: "Bảo hiểm Xe Máy",
+    color: "#DC2626",
+    href: "/bao-hiem-xe-co-gioi/xe-may/",
+    desc: "Cấp giấy chứng nhận điện tử (Bản PDF) lưu trên điện thoại hợp lệ theo Nghị định 03/2021/NĐ-CP.",
+    products: [
+      { title: "TNDS Xe Máy Bắt Buộc", href: "/bao-hiem-xe-co-gioi/tnds-xe-may/", desc: "Chỉ từ 66.000đ/Năm. Miễn lo phạt trạm kiểm soát giao thông." },
+      { title: "Bảo hiểm Cháy nổ & Mất cắp", href: "/bao-hiem-xe-co-gioi/mat-cap-xe-may/", desc: "Được đền bù khi xe bị trộm cướp bẻ khóa hoặc không may chập cháy." },
     ],
-  },
+  }
 ];
 
-export default function XeCoGioiPage() {
-  return (
-    <>
-      <div style={{ background: "linear-gradient(135deg, #0D9488 0%, #0F766E 100%)", padding: "4rem 0", textAlign: "center", color: "white" }}>
-        <div className="container">
-          <div style={{ fontSize: "3.5rem", marginBottom: "1rem" }}>🚗</div>
-          <h1 style={{ fontFamily: "'Be Vietnam Pro', sans-serif", fontWeight: 900, fontSize: "clamp(1.75rem, 4vw, 2.75rem)", marginBottom: "1rem" }}>
-            Bảo hiểm Xe cơ giới
-          </h1>
-          <p style={{ color: "rgba(255,255,255,0.85)", fontSize: "1.0625rem", maxWidth: 560, margin: "0 auto 2rem" }}>
-            Vật chất ô tô, TNDS ô tô & xe máy từ Bảo Việt, PVI, MIC, Bảo Minh, PJICO, DBV
-          </p>
-          <Link href="/lien-he/" className="btn-primary" style={{ background: "white", color: "#0D9488" }}>
-            Nhận tư vấn miễn phí
-          </Link>
-        </div>
-      </div>
+const benefitsData = [
+  { icon: "🏎️", title: "Cấp ấn chỉ điện tử", desc: "100% Giấy chứng nhận gửi qua Zalo/Email. Rút điện thoại ra soát mã QR cho CSGT hoàn toàn hợp pháp." },
+  { icon: "🛠️", title: "Cứu hộ miễn phí", desc: "Hỗ trợ xe cẩu kéo cứu hộ miễn phí 24/7 (phạm vi theo quy định) khi xe chết máy giữa đường." },
+  { icon: "💸", title: "Phí cạnh tranh nhất", desc: "Hệ thống kết nối trực tiếp với 8 hãng bảo hiểm xe cơ giới giúp bạn có bảng so sánh giá rẻ nhất ngay trong 1 phút." },
+  { icon: "🧑‍🔧", title: "Bảo lãnh Gara chính hãng", desc: "Tự do chọn gara sửa chữa chính hãng Toyota, Thaco, Honda... gần bạn nhất không bị ép buộc." }
+];
 
-      <section style={{ padding: "4rem 0" }}>
-        <div className="container">
-          <div style={{ display: "flex", flexDirection: "column", gap: "3rem" }}>
-            {groups.map((group) => (
-              <div key={group.title}>
-                <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "1.5rem" }}>
-                  <span style={{ fontSize: "2rem" }}>{group.icon}</span>
-                  <div>
-                    <h2 style={{ fontFamily: "'Be Vietnam Pro', sans-serif", fontWeight: 800, fontSize: "1.375rem", color: "var(--text-dark)" }}>{group.title}</h2>
-                    <p style={{ fontSize: "0.875rem", color: "var(--text-muted)" }}>{group.desc}</p>
-                  </div>
-                </div>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: "1rem" }}>
-                  {group.brands.map((b) => (
-                    <Link key={b.href} href={b.href} className="card" style={{ padding: "1.25rem 1.5rem", display: "flex", alignItems: "center", gap: "0.75rem", fontWeight: 700, color: "var(--text-dark)", fontFamily: "'Be Vietnam Pro', sans-serif" }}>
-                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4 2l4 4-4 4" stroke="#0D9488" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                      {b.name}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-    </>
+export default function BaoHiemXeCoGioiPage() {
+  return (
+    <InsuranceCategoryPage
+      gradient="linear-gradient(135deg, #1F2937 0%, #0F172A 100%)"
+      accentColor="#F59E0B"
+      icon="🚗"
+      title="Bảo hiểm Xe Cơ Giới"
+      subtitle="Người bạn đồng hành vạn dặm bình an. Nhận chiết khấu đặc biệt khi mua bảo hiểm Vật Chất (Hai chiều) và TNDS trên nền tảng của chúng tôi."
+      breadcrumbs={[
+        { label: "Trang chủ", href: "/" },
+        { label: "Xe cơ giới" }
+      ]}
+      brands={brandsData}
+      benefits={benefitsData}
+      ctaTitle="Điền biển số - Nhận ngay báo phí 8 hãng"
+      ctaDesc="Đừng vội mua bảo hiểm trước khi xem bảng so sánh giá độc quyền từ các chuyên viên của Baohiem.Online"
+    />
   );
 }
-

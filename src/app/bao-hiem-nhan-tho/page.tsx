@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import InsuranceCategoryPage from "@/components/InsuranceCategoryPage";
 
 export const metadata: Metadata = {
   title: "Bảo hiểm Nhân thọ - Tích lũy & Bảo vệ",
@@ -7,66 +7,50 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://baohiem.online/bao-hiem-nhan-tho/" },
 };
 
-const brands = [
+const brandsData = [
+  {
+    name: "Dai-ichi Life",
+    color: "#E31837",
+    desc: "Thương hiệu bảo hiểm Nhật Bản hàng đầu với dịch vụ tài chính tận tâm, đem đến sự bình an và tương lai thịnh vượng.",
+    products: [
+      { title: "An Tâm Song Hành", href: "/bao-hiem-nhan-tho/an-tam-song-hanh/", desc: "Bảo vệ sinh mạng và tài sản lên tới hàng chục tỷ, là một trong những sản phẩm chủ đạo bán chạy nhất của Dai-ichi." },
+      { title: "An Thịnh Đầu Tư", href: "/bao-hiem-nhan-tho/an-thinh-dau-tu/", desc: "Quyền lợi bảo vệ trọn đời kết hợp tích lũy đầu tư chia lãi dựa trên kết quả phát triển của công ty." }
+    ],
+  },
   {
     name: "Bảo Việt Nhân Thọ",
     color: "#C62828",
+    desc: "Doanh nghiệp nhân thọ thuộc tổng công ty nhà nước có lịch sử lâu đời và vững chắc nhất Việt Nam.",
     products: [
-      { title: "An Gia Phúc Lộc", href: "/bao-hiem-nhan-tho/an-gia-phuc-loc/", desc: "Tích lũy tiết kiệm kết hợp bảo vệ toàn diện" },
-      { title: "An Gia Thịnh Vượng", href: "/bao-hiem-nhan-tho/an-gia-thinh-vuong/", desc: "Đầu tư linh hoạt, hưởng lợi tức hấp dẫn" },
-      { title: "Tích lũy giáo dục", href: "/bao-hiem-nhan-tho/tich-luy-giao-duc/", desc: "Bảo vệ tương lai học vấn cho con trẻ" },
+      { title: "An Gia Phúc Lộc", href: "/bao-hiem-nhan-tho/an-gia-phuc-loc/", desc: "Tích lũy tiết kiệm kết hợp bảo vệ toàn diện, phù hợp cho nhóm tuổi ổn định sự nghiệp." },
+      { title: "An Phát Cát Tường", href: "/bao-hiem-nhan-tho/an-phat-cat-tuong/", desc: "Đầu tư linh hoạt, hưởng lợi tức hấp dẫn kết hợp quyền lợi bảo vệ ung thư cực mạnh." }
     ],
-  },
-  {
-    name: "Dai-ichi Life",
-    color: "#0C2340",
-    products: [
-      { title: "An Tâm Song Hành", href: "/bao-hiem-nhan-tho/an-tam-song-hanh/", desc: "Bảo hiểm nhân thọ cao cấp liên kết đầu tư" },
-      { title: "An Thịnh Đầu Tư", href: "/bao-hiem-nhan-tho/an-thinh-dau-tu/", desc: "Bảo vệ sức khỏe kết hợp tích lũy dài hạn" },
-    ],
-  },
+  }
+];
+
+const benefitsData = [
+  { icon: "🛡️", title: "Bảo vệ sinh mạng", desc: "Đảm bảo nguồn tài chính lớn cho người thân khi rủi ro cao nhất ập đến." },
+  { icon: "📈", title: "Tích lũy tài sản", desc: "Giống như hình thức bỏ heo đất có lãi suất và bảo vệ trượt giá." },
+  { icon: "🏥", title: "Đính kèm thẻ y tế", desc: "Các dòng sản phẩm nhân thọ cho phép đính kèm thẻ chăm sóc sức khỏe VIP cho cả gia đình." },
+  { icon: "👴", title: "Hưu trí an nhàn", desc: "Tiền tiết kiệm đến độ tuổi hưu trí có thể đáo hạn hưởng số tiền lãi kép khổng lồ." }
 ];
 
 export default function NhanThoPage() {
   return (
-    <>
-      <div style={{ background: "linear-gradient(135deg, #7C3AED 0%, #4C1D95 100%)", padding: "4rem 0", textAlign: "center", color: "white" }}>
-        <div className="container">
-          <div style={{ fontSize: "3.5rem", marginBottom: "1rem" }}>💎</div>
-          <h1 style={{ fontFamily: "'Be Vietnam Pro', sans-serif", fontWeight: 900, fontSize: "clamp(1.75rem, 4vw, 2.75rem)", marginBottom: "1rem" }}>
-            Bảo hiểm Nhân thọ
-          </h1>
-          <p style={{ color: "rgba(255,255,255,0.85)", fontSize: "1.0625rem", maxWidth: 560, margin: "0 auto 2rem" }}>
-            Tích lũy tài sản và bảo vệ gia đình với các gói nhân thọ từ Bảo Việt và Dai-ichi Life
-          </p>
-          <Link href="/lien-he/" className="btn-primary" style={{ background: "white", color: "#7C3AED" }}>
-            Nhận tư vấn miễn phí
-          </Link>
-        </div>
-      </div>
-      <section style={{ padding: "4rem 0" }}>
-        <div className="container">
-          <div style={{ display: "flex", flexDirection: "column", gap: "3rem" }}>
-            {brands.map((brand) => (
-              <div key={brand.name}>
-                <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "1.5rem" }}>
-                  <div style={{ width: 4, height: 36, background: brand.color, borderRadius: 2 }} />
-                  <h2 style={{ fontFamily: "'Be Vietnam Pro', sans-serif", fontWeight: 800, fontSize: "1.5rem", color: "var(--text-dark)" }}>{brand.name}</h2>
-                </div>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "1rem" }}>
-                  {brand.products.map((prod) => (
-                    <Link key={prod.href} href={prod.href} className="card" style={{ padding: "1.25rem 1.5rem" }}>
-                      <div style={{ fontWeight: 700, color: "var(--text-dark)", marginBottom: "0.5rem", fontFamily: "'Be Vietnam Pro', sans-serif" }}>{prod.title}</div>
-                      <p style={{ fontSize: "0.875rem", color: "var(--text-muted)", lineHeight: 1.5 }}>{prod.desc}</p>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-    </>
+    <InsuranceCategoryPage
+      gradient="linear-gradient(135deg, #7C3AED 0%, #4C1D95 100%)"
+      accentColor="#8B5CF6"
+      icon="💎"
+      title="Bảo hiểm Nhân Thọ"
+      subtitle="Thiết lập di sản tài sản an toàn cho thế hệ sau và tận hưởng lãi suất đầu tư sinh lời kỷ luật với cam kết từ các cường quốc tài chính."
+      breadcrumbs={[
+        { label: "Trang chủ", href: "/" },
+        { label: "Bảo hiểm Nhân thọ" }
+      ]}
+      brands={brandsData}
+      benefits={benefitsData}
+      ctaTitle="Lên kết hoạch di sản tài chính"
+      ctaDesc="Chuyên viên Tư Vấn Tài Chính (FC) cấp cao của chúng tôi sẽ thiết kế bảng minh họa trực quan."
+    />
   );
 }
-

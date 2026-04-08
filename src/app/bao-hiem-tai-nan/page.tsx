@@ -1,83 +1,59 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import InsuranceCategoryPage from "@/components/InsuranceCategoryPage";
 
 export const metadata: Metadata = {
-  title: "Bảo hiểm Tai nạn - Cá nhân & Tổ chức",
-  description: "Mua bảo hiểm tai nạn từ Bảo Việt, MIC, PVI. Bảo vệ trước mọi rủi ro tai nạn bất ngờ trong cuộc sống và lao động.",
+  title: "Bảo hiểm Tai nạn Con Người (24/24) - Mua Online chỉ từ 56k",
+  description: "Trang bị lá chắn toàn diện chi trả quyền lợi khi bạn rủi ro gặp tai nạn giao thông, hoặc tai nạn sinh hoạt thường nhật. Các gói cá nhân và hợp đồng công nhân.",
   alternates: { canonical: "https://baohiem.online/bao-hiem-tai-nan/" },
 };
 
-const brands = [
+const brandsData = [
   {
-    name: "Bảo Việt",
-    color: "#C62828",
+    name: "Bảo hiểm Tai nạn 24/24 (Cá nhân)",
+    color: "#EAB308",
+    href: "/bao-hiem-tai-nan/ca-nhan/",
+    desc: "Ngay cả khi bạn có BHYT, bảo hiểm tai nạn vẫn chi trả thêm một cục tiền mặt khi tổn thương thân thể, nhằm san sẻ chi phí gãy xương, thương tật.",
     products: [
-      { title: "Bảo hiểm tai nạn 247", href: "/bao-hiem-tai-nan/bao-viet-247/", desc: "Bảo vệ 24/7 trước mọi rủi ro tai nạn" },
-      { title: "Bảo hiểm tai nạn trách nhiệm cao", href: "/bao-hiem-tai-nan/bao-viet-tnc/", desc: "Mức bồi thường cao, bảo vệ toàn diện" },
-      { title: "Cologne Re", href: "/bao-hiem-tai-nan/cologne-re/", desc: "Bảo hiểm tai nạn kết hợp Cologne Re" },
+      { title: "Tai nạn Bảo Việt", href: "/bao-hiem-tai-nan/ca-nhan-bao-viet/", desc: "Giá rẻ, uy tín bồi thường tận nơi." },
+      { title: "Tai nạn MIC", href: "/bao-hiem-tai-nan/ca-nhan-mic/", desc: "Quy trình online chụp hồ sơ qua ứng dụng." },
+      { title: "Bảo Việt Tâm Bình (mở rộng tai nạn)", href: "/bao-hiem-suc-khoe/bao-viet-tam-binh/", desc: "Tích hợp cả ốm đau lẫn tai nạn chung 1 gói với 2k/ngày." }
     ],
   },
   {
-    name: "MIC",
-    color: "#1565C0",
+    name: "Bảo hiểm Tai nạn Công trường / Doanh nghiệp",
+    color: "#D97706",
+    href: "/bao-hiem-tai-nan/cong-truong/",
+    desc: "Gói bắt buộc khi làm thẻ ra vào các công trình thi công, xưởng sản xuất, bảo vệ người lao động chân tay khỏi các rủi ro máy móc.",
     products: [
-      { title: "Bảo hiểm tai nạn MIC", href: "/bao-hiem-tai-nan/mic-tai-nan/", desc: "Gói tai nạn linh hoạt từ MIC" },
-      { title: "Bảo hiểm vận động viên thể thao", href: "/bao-hiem-tai-nan/vdv-the-thao/", desc: "Dành riêng cho vận động viên và người chơi thể thao" },
+      { title: "Tai nạn Nhóm PVI", href: "#", desc: "Được hầu hết các Chủ đầu tư lớn chấp thuận chứng chỉ bảo hiểm." },
+      { title: "Tai nạn Nhóm VBI", href: "#", desc: "Xuất giấy tờ chứng nhận mộc đỏ nhanh theo danh sách Excel." }
     ],
-  },
-  {
-    name: "PVI",
-    color: "#E65100",
-    products: [
-      { title: "Bảo hiểm tai nạn PVI", href: "/bao-hiem-tai-nan/pvi-tai-nan/", desc: "Bảo hiểm tai nạn cá nhân uy tín từ PVI" },
-    ],
-  },
+  }
+];
+
+const benefitsData = [
+  { icon: "🦴", title: "Trợ cấp thương tật gãy xương", desc: "Một tỷ lệ tiền mặt tương ứng (ví dụ 10% hạn mức = 10 Triệu) sẽ được thanh toán cho các bó bột, gãy chân tay." },
+  { icon: "🚑", title: "Trả tiền xe cấp cứu", desc: "Bồi hoàn chi phí gọi xe cấp cứu và các dụng cụ y tế sơ cứu ngay tại hiện trường." },
+  { icon: "☠️", title: "Sinh mạng do tai nạn", desc: "Hỗ trợ 100% hạn mức (vd 100 Triệu) cho tổ ấm gia đình nếu Trụ cột không may tử nạn." },
+  { icon: "👷‍♂️", title: "Bảo vệ ngay trong lao động", desc: "Phù hợp để bảo vệ tính mạng và sức khỏe cho đội ngũ anh em công nhân làm việc năng nhọc rủi ro." }
 ];
 
 export default function TaiNanPage() {
   return (
-    <>
-      <div style={{ background: "linear-gradient(135deg, #E05C1A 0%, #c94c10 100%)", padding: "4rem 0", textAlign: "center", color: "white" }}>
-        <div className="container">
-          <div style={{ fontSize: "3.5rem", marginBottom: "1rem" }}>🛡️</div>
-          <h1 style={{ fontFamily: "'Be Vietnam Pro', sans-serif", fontWeight: 900, fontSize: "clamp(1.75rem, 4vw, 2.75rem)", marginBottom: "1rem" }}>
-            Bảo hiểm Tai nạn
-          </h1>
-          <p style={{ color: "rgba(255,255,255,0.85)", fontSize: "1.0625rem", maxWidth: 560, margin: "0 auto 2rem" }}>
-            Bảo vệ trước mọi rủi ro tai nạn từ Bảo Việt, MIC và PVI
-          </p>
-          <Link href="/lien-he/" className="btn-primary" style={{ background: "white", color: "#E05C1A" }}>
-            Nhận tư vấn miễn phí
-          </Link>
-        </div>
-      </div>
-
-      <section style={{ padding: "4rem 0" }}>
-        <div className="container">
-          <div style={{ display: "flex", flexDirection: "column", gap: "3rem" }}>
-            {brands.map((brand) => (
-              <div key={brand.name}>
-                <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "1.5rem" }}>
-                  <div style={{ width: 4, height: 36, background: brand.color, borderRadius: 2 }} />
-                  <h2 style={{ fontFamily: "'Be Vietnam Pro', sans-serif", fontWeight: 800, fontSize: "1.5rem", color: "var(--text-dark)" }}>{brand.name}</h2>
-                </div>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "1rem" }}>
-                  {brand.products.map((prod) => (
-                    <Link key={prod.href} href={prod.href} className="card" style={{ padding: "1.25rem 1.5rem" }}>
-                      <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.5rem" }}>
-                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4 2l4 4-4 4" stroke={brand.color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                        <span style={{ fontWeight: 700, color: "var(--text-dark)", fontFamily: "'Be Vietnam Pro', sans-serif" }}>{prod.title}</span>
-                      </div>
-                      <p style={{ fontSize: "0.875rem", color: "var(--text-muted)", lineHeight: 1.5 }}>{prod.desc}</p>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-    </>
+    <InsuranceCategoryPage
+      gradient="linear-gradient(135deg, #F59E0B 0%, #D97706 100%)"
+      accentColor="#D97706"
+      icon="🚧"
+      title="Bảo hiểm Tai Nạn 24/24"
+      subtitle="Tai nạn là điều không báo trước. Gói bảo hiểm chi trả tiền bồi thường dựa theo tỷ lệ thương tật giúp giảm tải nỗi đau tài chính gia đình."
+      breadcrumbs={[
+        { label: "Trang chủ", href: "/" },
+        { label: "Bảo hiểm tai nạn" }
+      ]}
+      brands={brandsData}
+      benefits={benefitsData}
+      ctaTitle="Chỉ từ chưa tới một bát phở phí tham gia"
+      ctaDesc="Quyết định tham gia gói bảo hiểm Tai Nạn chưa bao giờ làm bạn tốn kém. Hãy tự bảo vệ bản thân khi bước ra đường!"
+    />
   );
 }
-
