@@ -197,7 +197,6 @@ const navMenu = [
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [activeMobile, setActiveMobile] = useState<string | null>(null);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQ, setSearchQ] = useState("");
@@ -235,9 +234,9 @@ export default function Header() {
     <>
       {/* Search Overlay */}
       {searchOpen && (
-        <div className="fixed inset-0 z-[100] bg-slate-900/60 backdrop-blur-md flex items-start justify-center pt-20 px-4 transition-all animate-fadeInUp" style={{ animationDuration: "0.2s" }}>
+        <div className="fixed inset-0 z-[100] bg-slate-900/60 backdrop-blur-md flex justify-center transition-all animate-fadeInUp" style={{ alignItems: "flex-start", paddingTop: "80px", paddingLeft: "1rem", paddingRight: "1rem", animationDuration: "0.2s" }}>
           <div style={{ background: "white", borderRadius: 20, width: "100%", maxWidth: 680, boxShadow: "0 25px 60px rgba(0,0,0,0.2)", overflow: "hidden" }}>
-            <form onSubmit={handleSearch} className="p-4 flex gap-3">
+            <form onSubmit={handleSearch} style={{ display: "flex", gap: "0.75rem", padding: "1.25rem" }}>
               <input
                 ref={searchRef}
                 type="text"
@@ -253,8 +252,8 @@ export default function Header() {
                 onFocus={(e) => { e.target.style.borderColor = "var(--accent)"; e.target.style.background = "white"; }}
                 onBlur={(e) => { e.target.style.borderColor = "#f1f5f9"; e.target.style.background = "#f8fafc"; }}
               />
-              <button type="submit" className="btn-primary px-6" style={{ borderRadius: 12 }}>Tìm kiếm</button>
-              <button type="button" onClick={() => setSearchOpen(false)} className="btn-secondary px-5" style={{ borderRadius: 12, border: "none", background: "#f1f5f9" }}>✕</button>
+              <button type="submit" className="btn-primary" style={{ padding: "0 1.5rem", borderRadius: 12 }}>Tìm kiếm</button>
+              <button type="button" onClick={() => setSearchOpen(false)} className="btn-secondary" style={{ padding: "0 1.25rem", borderRadius: 12, border: "none", background: "#f1f5f9" }}>✕</button>
             </form>
           </div>
         </div>
@@ -353,19 +352,14 @@ export default function Header() {
                 <div
                   key={item.id}
                   className="h-full font-600 flex items-center relative group"
-                  onMouseEnter={() => setActiveMenu(item.id)}
-                  onMouseLeave={() => setActiveMenu(null)}
                 >
                   <button
-                    className={`nav-link h-full flex items-center gap-2 px-2 xl:px-3
-                      font-semibold text-[0.9375rem] transition-colors duration-200
-                      ${activeMenu === item.id ? "text-slate-900 active" : "text-slate-600 hover:text-slate-900"}
-                    `}
+                    className="nav-link h-full flex items-center gap-2 px-2 xl:px-3 font-semibold text-[0.9375rem] transition-colors duration-200 text-slate-600 group-hover:text-slate-900 group-hover:after:w-full"
                     style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
                   >
                     {item.title}
                     <svg
-                      className={`w-3.5 h-3.5 transition-transform duration-300 ${activeMenu === item.id ? "rotate-180 text-slate-800" : "text-slate-400"}`}
+                      className="w-3.5 h-3.5 transition-transform duration-300 text-slate-400 group-hover:rotate-180 group-hover:text-slate-800"
                       fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}
                     >
                       <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
@@ -373,17 +367,16 @@ export default function Header() {
                   </button>
 
                   {/* Mega Menu Dropdown */}
-                  {activeMenu === item.id && (
-                    <div 
-                      className="absolute top-[calc(100%-8px)] pt-3 z-50 pointer-events-auto" 
-                      style={{ 
-                        left: (item.id === 'suc-khoe' || item.id === 'xe-co-gioi') ? '0' : (item.id === 'bao-hiem-khac' ? 'auto' : '50%'),
-                        right: item.id === 'bao-hiem-khac' ? '0' : 'auto',
-                        transform: (item.id === 'suc-khoe' || item.id === 'xe-co-gioi' || item.id === 'bao-hiem-khac') ? 'none' : 'translateX(-50%)' 
-                      }}
-                    >
-                      <div
-                        className="mega-dropdown"
+                  <div 
+                    className="absolute top-[calc(100%-8px)] pt-3 z-50 pointer-events-none opacity-0 invisible group-hover:pointer-events-auto group-hover:opacity-100 group-hover:visible transition-all duration-300" 
+                    style={{ 
+                      left: (item.id === 'suc-khoe' || item.id === 'xe-co-gioi') ? '0' : (item.id === 'bao-hiem-khac' ? 'auto' : '50%'),
+                      right: item.id === 'bao-hiem-khac' ? '0' : 'auto',
+                      transform: (item.id === 'suc-khoe' || item.id === 'xe-co-gioi' || item.id === 'bao-hiem-khac') ? 'none' : 'translateX(-50%)' 
+                    }}
+                  >
+                    <div
+                      className="mega-dropdown group-hover:animate-fadeInUp"
                         style={{
                           background: "rgba(255, 255, 255, 0.98)", backdropFilter: "blur(20px)",
                           borderRadius: 24, padding: "0.5rem",
@@ -430,7 +423,6 @@ export default function Header() {
                         </div>
                       </div>
                     </div>
-                  )}
                 </div>
               ))}
             </nav>
@@ -469,7 +461,7 @@ export default function Header() {
       </header>
 
       {/* Main content Spacer to prevent content jump */}
-      <div style={{ height: activeMenu ? 116 : 116 }} className="lg:h-[116px] h-[80px]" />
+      <div className="lg:h-[116px] h-[80px]" />
 
       {/* --- MOBILE MENU --- */}
       {/* Backdrop */}
