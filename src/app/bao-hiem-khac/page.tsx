@@ -1,78 +1,60 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import InsuranceCategoryPage from "@/components/InsuranceCategoryPage";
 
 export const metadata: Metadata = {
-  title: "Bảo hiểm Tài sản & Doanh nghiệp",
-  description: "Bảo hiểm nhà tư nhân, cháy nổ, hàng hóa, xây dựng, kỹ thuật và trách nhiệm doanh nghiệp từ Bảo Việt, PVI, MIC, PJICO.",
+  title: "Bảo hiểm Khác - Giải pháp toàn diện cho Cá nhân & Doanh nghiệp",
+  description: "Bảo hiểm cháy nổ nhà tư nhân, bảo hiểm xây dựng, trách nhiệm nghề nghiệp và hàng hóa xuất nhập khẩu, đáp ứng mọi yêu cầu thẩm định tài chính khắt khe.",
   alternates: { canonical: "https://baohiem.online/bao-hiem-khac/" },
 };
 
-const groups = [
+const brandsData = [
   {
-    title: "Bảo hiểm tài sản",
-    icon: "🏠",
-    color: "#059669",
+    name: "Bảo hiểm Tài sản & Kỹ thuật",
+    color: "#B45309",
+    href: "/bao-hiem-khac/tai-san/",
+    desc: "Lá chắn vững chắc cho cơ sở vật chất, máy móc và công trình xây dựng trước hiểm họa cháy nổ và thiên tai.",
     products: [
-      { title: "Bảo hiểm nhà tư nhân", href: "/bao-hiem-khac/nha-tu-nhan/", desc: "Bảo vệ ngôi nhà trước rủi ro thiên tai, trộm cắp" },
-      { title: "Bảo hiểm cháy nổ", href: "/bao-hiem-khac/chay-no/", desc: "Bắt buộc cho nhà xưởng, cơ sở sản xuất" },
-      { title: "Bảo hiểm xây dựng", href: "/bao-hiem-khac/xay-dung/", desc: "Bảo vệ công trình trong quá trình thi công" },
+      { title: "Bảo hiểm Nhà tư nhân", href: "/bao-hiem-khac/nha-tu-nhan/", desc: "Giữ lửa tổ ấm an toàn tuyệt đối trước nguy cơ chập cháy lưới điện." },
+      { title: "Bảo hiểm Cháy nổ", href: "/bao-hiem-khac/chay-no/", desc: "Thủ tục pháp lý tuân thủ Cảnh sát PCCC đối với hộ kinh doanh và chung cư." },
+      { title: "Bảo hiểm Xây dựng", href: "/bao-hiem-khac/xay-dung/", desc: "Bao tiêu toàn bộ rủi ro giàn giáo, nguyên vật liệu trong suốt tiến độ thi công." }
     ],
   },
   {
-    title: "Bảo hiểm doanh nghiệp",
-    icon: "🏢",
+    name: "Bảo hiểm Doanh nghiệp",
     color: "#0F766E",
+    href: "/bao-hiem-khac/doanh-nghiep/",
+    desc: "Giảm thiếu tác động tài chính từ các rủi ro vận tải và tranh chấp pháp lý đặc thù của khối sản xuất/thương mại.",
     products: [
-      { title: "Bảo hiểm trách nhiệm", href: "/bao-hiem-khac/trach-nhiem/", desc: "Trách nhiệm nghề nghiệp, sản phẩm" },
-      { title: "Bảo hiểm hàng hóa", href: "/bao-hiem-khac/hang-hoa/", desc: "Bảo vệ hàng hóa trong quá trình vận chuyển" },
-      { title: "Bảo hiểm kỹ thuật", href: "/bao-hiem-khac/ky-thuat/", desc: "Máy móc thiết bị điện tử, công trình" },
+      { title: "Bảo hiểm Trách nhiệm", href: "/bao-hiem-khac/trach-nhiem/", desc: "Trách nhiệm công cộng và Trách nhiệm sản phẩm khi xảy ra sự cố ngộ độc, tai nạn cho bên thứ 3." },
+      { title: "Bảo hiểm Hàng hóa", href: "/bao-hiem-khac/hang-hoa/", desc: "Giảm rủi ro mất mát/tổn thất hàng hóa xuất nhập cảnh do chìm tàu, lốc xoáy." },
+      { title: "Bảo hiểm Kỹ thuật", href: "/bao-hiem-khac/ky-thuat/", desc: "Bảo vệ hệ thống nồi hơi, máy móc hạng nặng trong các xưởng công nghiệp quy mô lớn." }
     ],
-  },
+  }
 ];
 
-export default function BaoHiemKhacPage() {
+const benefitsData = [
+  { icon: "📜", title: "Đáp ứng quy định Nhà nước", desc: "Giấy chứng nhận hợp pháp giúp doanh nghiệp vượt qua thanh tra PCCC và cấp phép xây dựng." },
+  { icon: "🧑‍⚖️", title: "Thẩm định bồi thường minh bạch", desc: "Quy trình đo bốc tách thiệt hại rõ ràng theo chuẩn quốc tế, không giam vốn thời gian dài." },
+  { icon: "💸", title: "Linh hoạt ngân sách", desc: "Tỷ lệ phí được deal thương lượng trực tiếp dựa theo mức an toàn của công ty bạn." },
+  { icon: "🌍", title: "Hỗ trợ chuỗi cung ứng", desc: "Gói hàng hóa (Cargo) cho phép phát hành theo Lô linh động qua file Excel chỉ trong nửa giờ." }
+];
+
+export default function KhacPage() {
   return (
-    <>
-      <div style={{ background: "linear-gradient(135deg, #059669 0%, #047857 100%)", padding: "4rem 0", textAlign: "center", color: "white" }}>
-        <div className="container">
-          <div style={{ fontSize: "3.5rem", marginBottom: "1rem" }}>🏢</div>
-          <h1 style={{ fontFamily: "'Be Vietnam Pro', sans-serif", fontWeight: 900, fontSize: "clamp(1.75rem, 4vw, 2.75rem)", marginBottom: "1rem" }}>
-            Bảo hiểm khác
-          </h1>
-          <p style={{ color: "rgba(255,255,255,0.85)", fontSize: "1.0625rem", maxWidth: 560, margin: "0 auto 2rem" }}>
-            Tài sản, cháy nổ, hàng hóa, kỹ thuật và trách nhiệm doanh nghiệp
-          </p>
-          <Link href="/lien-he/" className="btn-primary" style={{ background: "white", color: "#059669" }}>
-            Nhận tư vấn miễn phí
-          </Link>
-        </div>
-      </div>
-      <section style={{ padding: "4rem 0" }}>
-        <div className="container">
-          <div style={{ display: "flex", flexDirection: "column", gap: "3rem" }}>
-            {groups.map((group) => (
-              <div key={group.title}>
-                <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "1.5rem" }}>
-                  <span style={{ fontSize: "2rem" }}>{group.icon}</span>
-                  <h2 style={{ fontFamily: "'Be Vietnam Pro', sans-serif", fontWeight: 800, fontSize: "1.375rem", color: "var(--text-dark)" }}>{group.title}</h2>
-                </div>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "1rem" }}>
-                  {group.products.map((prod) => (
-                    <Link key={prod.href} href={prod.href} className="card" style={{ padding: "1.25rem 1.5rem" }}>
-                      <div style={{ fontWeight: 700, color: "var(--text-dark)", marginBottom: "0.5rem", fontFamily: "'Be Vietnam Pro', sans-serif", display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4 2l4 4-4 4" stroke={group.color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                        {prod.title}
-                      </div>
-                      <p style={{ fontSize: "0.875rem", color: "var(--text-muted)", lineHeight: 1.5 }}>{prod.desc}</p>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-    </>
+    <InsuranceCategoryPage
+      gradient="linear-gradient(135deg, #1E293B 0%, #0F172A 100%)"
+      accentColor="#64748B"
+      icon="🏗️"
+      title="Bảo hiểm Tài sản & Doanh nghiệp"
+      subtitle="Danh mục bảo hiểm đặc thù chuyên sâu phục vụ hoạt động sản xuất kinh doanh và bảo vệ tư gia trước các thiệt hại hàng tỷ đồng do hỏa hoạn, trộm cướp."
+      breadcrumbs={[
+        { label: "Trang chủ", href: "/" },
+        { label: "Bảo hiểm Khác" }
+      ]}
+      brands={brandsData}
+      benefits={benefitsData}
+      ctaTitle="Trao đổi nghiệp vụ chuyên sâu"
+      ctaDesc="Loại hình bảo hiểm này phụ thuộc rất nhiều vào ngành hàng của bạn. Hãy gửi cho chúng tôi bảng khái toán mức đánh giá rủi ro."
+    />
   );
 }
-
