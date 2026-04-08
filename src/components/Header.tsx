@@ -374,7 +374,14 @@ export default function Header() {
 
                   {/* Mega Menu Dropdown */}
                   {activeMenu === item.id && (
-                    <div className="mega-dropdown absolute top-[calc(100%-8px)] pt-3 z-50 pointer-events-auto" style={{ left: '50%', transform: 'translateX(-50%)' }}>
+                    <div 
+                      className="mega-dropdown absolute top-[calc(100%-8px)] pt-3 z-50 pointer-events-auto" 
+                      style={{ 
+                        left: (item.id === 'suc-khoe' || item.id === 'xe-co-gioi') ? '0' : (item.id === 'bao-hiem-khac' ? 'auto' : '50%'),
+                        right: item.id === 'bao-hiem-khac' ? '0' : 'auto',
+                        transform: (item.id === 'suc-khoe' || item.id === 'xe-co-gioi' || item.id === 'bao-hiem-khac') ? 'none' : 'translateX(-50%)' 
+                      }}
+                    >
                       <div
                         style={{
                           background: "rgba(255, 255, 255, 0.98)", backdropFilter: "blur(20px)",
