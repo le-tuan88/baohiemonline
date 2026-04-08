@@ -524,7 +524,7 @@ export default function Header() {
                 <div className="flex flex-col gap-6 pl-2 border-l border-white/10 ml-2">
                   {item.megaMenu.map((group, gi) => (
                     <div key={gi} className="pl-4">
-                      <Link href={group.groupHref} onClick={() => setMobileOpen(false)} className="inline-block text-white/90 font-bold text-[1.0625rem] mb-3 font-['Be_Vietnam_Pro'] tracking-wide">
+                      <Link href={group.groupHref} onClick={() => setMobileOpen(false)} className="inline-block font-bold text-[1.0625rem] mb-3 font-['Be_Vietnam_Pro'] tracking-wide transition-colors" style={{ color: "rgba(255,255,255,0.95)" }}>
                         {group.group}
                       </Link>
                       <div className="flex flex-col gap-3">
@@ -533,7 +533,8 @@ export default function Header() {
                             key={si}
                             href={sub.href}
                             onClick={() => setMobileOpen(false)}
-                            className="flex items-center gap-3 text-base text-white/60 hover:text-white transition-colors"
+                            className="flex items-center gap-3 text-base transition-opacity hover:opacity-100"
+                            style={{ color: "white", opacity: 0.75 }}
                           >
                             <span className="w-1.5 h-1.5 rounded-full bg-white/20" />
                             {sub.title}
@@ -547,11 +548,12 @@ export default function Header() {
             </div>
           ))}
           
-          <div className="py-8">
+          <div className="py-8 border-b border-white/5">
             <Link 
               href="/blog/" 
               onClick={() => setMobileOpen(false)}
-              className="font-['Be_Vietnam_Pro'] font-bold text-xl text-white/80 hover:text-white flex items-center justify-between"
+              className="font-['Be_Vietnam_Pro'] font-bold text-xl flex items-center justify-between transition-opacity hover:opacity-100"
+              style={{ color: "white" }}
             >
               Tin tức & Bài viết
             </Link>
