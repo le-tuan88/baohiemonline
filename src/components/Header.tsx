@@ -159,11 +159,11 @@ const navMenu = [
         ],
       },
       {
-        group: "Manulife",
-        groupHref: "/bao-hiem-nhan-tho/manulife/",
+        group: "Dai-ichi Life",
+        groupHref: "/bao-hiem-nhan-tho/dai-ichi/",
         items: [
-          { title: "Manulife Pro", href: "/bao-hiem-nhan-tho/manulife-pro/" },
-          { title: "Manulife Sống Khỏe", href: "/bao-hiem-nhan-tho/manulife-song-khoe/" },
+          { title: "An Tâm Song Hành", href: "/bao-hiem-nhan-tho/an-tam-song-hanh/" },
+          { title: "An Thịnh Đầu Tư", href: "/bao-hiem-nhan-tho/an-thinh-dau-tu/" },
         ],
       },
     ],

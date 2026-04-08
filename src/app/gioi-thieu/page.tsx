@@ -31,7 +31,7 @@ export default function GioiThieuPage() {
                 <strong>Bảo Hiểm Online</strong> (baohiem.online) là nền tảng môi giới bảo hiểm trực tuyến được thành lập với sứ mệnh giúp mọi người dễ dàng tiếp cận các giải pháp bảo hiểm chất lượng cao với chi phí hợp lý.
               </p>
               <p style={{ color: "var(--text-muted)", lineHeight: 1.8 }}>
-                Chúng tôi hợp tác chính thức với các công ty bảo hiểm hàng đầu Việt Nam như Bảo Việt, PVI, MIC, VBI, Bảo Minh, PJICO, Liberty, Manulife và nhiều đối tác uy tín khác.
+                Chúng tôi hợp tác chính thức với các công ty bảo hiểm hàng đầu Việt Nam như Bảo Việt, PVI, MIC, VBI, Bảo Minh, PJICO, Liberty, Dai-ichi Life và nhiều đối tác uy tín khác.
               </p>
             </div>
             <div

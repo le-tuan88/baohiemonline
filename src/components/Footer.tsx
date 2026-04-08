@@ -44,7 +44,7 @@ const footerLinks = {
 
 const insurancePartners = [
   "Bảo Việt", "PVI", "MIC", "VBI", "Bảo Minh",
-  "PJICO", "Liberty", "Manulife", "DBV",
+  "PJICO", "Liberty", "Dai-ichi Life", "DBV",
 ];
 
 export default function Footer() {

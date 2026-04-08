@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Bảo hiểm Nhân thọ - Tích lũy & Bảo vệ",
-  description: "Bảo hiểm nhân thọ từ Bảo Việt Nhân Thọ và Manulife. Đầu tư tương lai, bảo vệ gia đình với các gói tích lũy dài hạn.",
+  description: "Bảo hiểm nhân thọ từ Bảo Việt Nhân Thọ và Dai-ichi Life. Đầu tư tương lai, bảo vệ gia đình với các gói tích lũy dài hạn.",
   alternates: { canonical: "https://baohiem.online/bao-hiem-nhan-tho/" },
 };
 
@@ -18,11 +18,11 @@ const brands = [
     ],
   },
   {
-    name: "Manulife",
+    name: "Dai-ichi Life",
     color: "#0C2340",
     products: [
-      { title: "Manulife Pro", href: "/bao-hiem-nhan-tho/manulife-pro/", desc: "Bảo hiểm nhân thọ cao cấp liên kết đầu tư" },
-      { title: "Manulife Sống Khỏe", href: "/bao-hiem-nhan-tho/manulife-song-khoe/", desc: "Bảo vệ sức khỏe kết hợp tích lũy dài hạn" },
+      { title: "An Tâm Song Hành", href: "/bao-hiem-nhan-tho/an-tam-song-hanh/", desc: "Bảo hiểm nhân thọ cao cấp liên kết đầu tư" },
+      { title: "An Thịnh Đầu Tư", href: "/bao-hiem-nhan-tho/an-thinh-dau-tu/", desc: "Bảo vệ sức khỏe kết hợp tích lũy dài hạn" },
     ],
   },
 ];
@@ -37,7 +37,7 @@ export default function NhanThoPage() {
             Bảo hiểm Nhân thọ
           </h1>
           <p style={{ color: "rgba(255,255,255,0.85)", fontSize: "1.0625rem", maxWidth: 560, margin: "0 auto 2rem" }}>
-            Tích lũy tài sản và bảo vệ gia đình với các gói nhân thọ từ Bảo Việt và Manulife
+            Tích lũy tài sản và bảo vệ gia đình với các gói nhân thọ từ Bảo Việt và Dai-ichi Life
           </p>
           <Link href="/lien-he/" className="btn-primary" style={{ background: "white", color: "#7C3AED" }}>
             Nhận tư vấn miễn phí

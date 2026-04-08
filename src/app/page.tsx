@@ -55,7 +55,7 @@ const productCategories = [
     href: "/bao-hiem-nhan-tho/",
     color: "#7C3AED",
     bg: "#F5F3FF",
-    brands: ["Bảo Việt", "Manulife"],
+    brands: ["Bảo Việt", "Dai-ichi Life"],
   },
   {
     icon: "🏢",
