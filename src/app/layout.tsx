@@ -69,6 +69,9 @@ export default function RootLayout({
           rel="stylesheet"
         />
         <meta name="theme-color" content="#0F2044" />
+        {/* WordPress Gutenberg Block Styles — renders all WP blocks correctly */}
+        <link rel="stylesheet" href="https://quanly.baohiem.online/wp-includes/css/dist/block-library/style.min.css" />
+        <link rel="stylesheet" href="https://quanly.baohiem.online/wp-includes/css/dist/block-library/theme.min.css" />
       </head>
       <body>
         <MainLayout>{children}</MainLayout>

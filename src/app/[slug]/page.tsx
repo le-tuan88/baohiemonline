@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { getAllNodeUris, getNodeByUri, BASE_URL } from "@/lib/wp-api";
+import { getAllNodeUris, getNodeByUri, getPostRenderedContent, BASE_URL } from "@/lib/wp-api";
 
 export const dynamicParams = true;
 export const revalidate = 60;
@@ -93,6 +93,12 @@ export default async function SlugPage({ params }: Props) {
 
   // ===== POST =====
   const post = node;
+
+  // Try to get full Gutenberg-rendered content from WP REST API
+  // (includes all inline block styles — more accurate than GraphQL content)
+  const restContent = await getPostRenderedContent(slug);
+  const postContent = restContent || post.content || "";
+
   const canonical = post.seo?.canonicalUrl || `${BASE_URL}/${slug}/`;
 
   return (
@@ -216,7 +222,7 @@ export default async function SlugPage({ params }: Props) {
               marginTop: "2rem",
               boxShadow: "0 2px 24px rgba(0,0,0,0.05)",
             }}>
-              <div className="wp-content" dangerouslySetInnerHTML={{ __html: post.content || "" }} />
+              <div className="wp-content" dangerouslySetInnerHTML={{ __html: postContent }} />
             </div>
 
             {/* Tags / categories */}

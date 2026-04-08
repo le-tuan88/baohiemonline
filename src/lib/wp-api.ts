@@ -89,6 +89,47 @@ export async function getNodeByUri(uri: string) {
   }
 }
 
+const WP_REST_BASE = WP_GRAPHQL_URL.replace('/graphql', '');
+
+/**
+ * Fetch full Gutenberg-rendered HTML from WP REST API.
+ * REST API returns content with all inline styles applied — more complete than GraphQL.
+ */
+export async function getPostRenderedContent(slug: string): Promise<string | null> {
+  try {
+    const res = await fetch(
+      `${WP_REST_BASE}/wp-json/wp/v2/posts?slug=${encodeURIComponent(slug)}&_fields=content`,
+      { next: { revalidate: 60 } }
+    );
+    if (!res.ok) return null;
+    const posts = await res.json();
+    if (!Array.isArray(posts) || posts.length === 0) return null;
+    return posts[0]?.content?.rendered || null;
+  } catch (err) {
+    console.warn(`[getPostRenderedContent] failed for "${slug}":`, err);
+    return null;
+  }
+}
+
+/**
+ * Fetch WP global styles CSS (generated from theme.json + customizer).
+ */
+export async function getWpGlobalStylesCSS(): Promise<string> {
+  try {
+    // Try the global-styles endpoint (WP 5.9+)
+    const res = await fetch(
+      `${WP_REST_BASE}/wp-json/wp/v2/global-styles/themes/twentytwentyfour?_fields=generated_css`,
+      { next: { revalidate: 3600 } }
+    );
+    if (!res.ok) return '';
+    const data = await res.json();
+    return data?.generated_css || '';
+  } catch {
+    return '';
+  }
+}
+
+
 export async function getHomePosts() {
   try {
     const data = await fetchGraphQL(`

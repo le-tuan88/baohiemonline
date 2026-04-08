@@ -432,6 +432,15 @@ export default function Header() {
                     </div>
                 </div>
               ))}
+
+              {/* Blog standalone link */}
+              <Link
+                href="/blog/"
+                className="nav-link h-full flex items-center gap-1.5 px-2 xl:px-3 font-semibold text-[0.9375rem] transition-colors duration-200 text-slate-600 hover:text-slate-900"
+                style={{ fontFamily: "'Be Vietnam Pro', sans-serif", whiteSpace: "nowrap" }}
+              >
+                📰 Blog
+              </Link>
             </nav>
 
             {/* Right actions */}
