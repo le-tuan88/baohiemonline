@@ -287,8 +287,8 @@ export default function Header() {
         
         /* Dropdown fade in */
         @keyframes menuFade {
-          from { opacity: 0; transform: translateY(10px) translateX(-50%); }
-          to { opacity: 1; transform: translateY(0) translateX(-50%); }
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: translateY(0); }
         }
         .mega-dropdown {
           animation: menuFade 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -375,7 +375,7 @@ export default function Header() {
                   {/* Mega Menu Dropdown */}
                   {activeMenu === item.id && (
                     <div 
-                      className="mega-dropdown absolute top-[calc(100%-8px)] pt-3 z-50 pointer-events-auto" 
+                      className="absolute top-[calc(100%-8px)] pt-3 z-50 pointer-events-auto" 
                       style={{ 
                         left: (item.id === 'suc-khoe' || item.id === 'xe-co-gioi') ? '0' : (item.id === 'bao-hiem-khac' ? 'auto' : '50%'),
                         right: item.id === 'bao-hiem-khac' ? '0' : 'auto',
@@ -383,6 +383,7 @@ export default function Header() {
                       }}
                     >
                       <div
+                        className="mega-dropdown"
                         style={{
                           background: "rgba(255, 255, 255, 0.98)", backdropFilter: "blur(20px)",
                           borderRadius: 24, padding: "0.5rem",
