@@ -505,7 +505,8 @@ export default function Header() {
             <div key={item.id} className="border-b border-white/5">
               <button
                 onClick={() => setActiveMobile(activeMobile === item.id ? null : item.id)}
-                className="w-full py-5 flex items-center justify-between text-left transition-colors"
+                className="w-full flex items-center justify-between text-left transition-colors"
+                style={{ padding: "1.25rem 0" }}
               >
                 <span className={`font-['Be_Vietnam_Pro'] font-bold text-2xl transition-colors duration-300 ${activeMobile === item.id ? "text-[var(--accent)]" : "text-white"}`}>
                   {item.title}
@@ -548,11 +549,11 @@ export default function Header() {
             </div>
           ))}
           
-          <div className="py-8 border-b border-white/5">
+          <div className="border-b border-white/5" style={{ padding: "1.5rem 0" }}>
             <Link 
               href="/blog/" 
               onClick={() => setMobileOpen(false)}
-              className="font-['Be_Vietnam_Pro'] font-bold text-xl flex items-center justify-between transition-opacity hover:opacity-100"
+              className="font-['Be_Vietnam_Pro'] font-bold text-2xl flex items-center justify-between transition-opacity hover:opacity-100"
               style={{ color: "white" }}
             >
               Tin tức & Bài viết
