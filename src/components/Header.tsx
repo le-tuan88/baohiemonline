@@ -205,8 +205,10 @@ export default function Header() {
   const router = useRouter();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", onScroll);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 40);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
@@ -231,88 +233,139 @@ export default function Header() {
 
   return (
     <>
-      <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled ? "bg-white/95 backdrop-blur-md shadow-lg shadow-slate-900/10" : "bg-white"
-        }`}
-      >
-        {/* Top bar */}
-        <div
-          style={{
-            background: "var(--primary)",
-            fontSize: "0.8125rem",
-            color: "rgba(255,255,255,0.85)",
-          }}
-          className="hidden lg:block"
+      {/* Search Overlay */}
+      {searchOpen && (
+        <div className="fixed inset-0 z-[100] bg-slate-900/60 backdrop-blur-md flex items-start justify-center pt-20 px-4 transition-all animate-fadeInUp" style={{ animationDuration: "0.2s" }}>
+          <div style={{ background: "white", borderRadius: 20, width: "100%", maxWidth: 680, boxShadow: "0 25px 60px rgba(0,0,0,0.2)", overflow: "hidden" }}>
+            <form onSubmit={handleSearch} className="p-4 flex gap-3">
+              <input
+                ref={searchRef}
+                type="text"
+                value={searchQ}
+                onChange={(e) => setSearchQ(e.target.value)}
+                placeholder="Tìm kiếm bảo hiểm, bài viết..."
+                style={{
+                  flex: 1, border: "2px solid #f1f5f9", borderRadius: 12,
+                  padding: "0.875rem 1.25rem", fontSize: "1.0625rem", outline: "none",
+                  fontFamily: "'Be Vietnam Pro', sans-serif", background: "#f8fafc",
+                  transition: "all 0.2s"
+                }}
+                onFocus={(e) => { e.target.style.borderColor = "var(--accent)"; e.target.style.background = "white"; }}
+                onBlur={(e) => { e.target.style.borderColor = "#f1f5f9"; e.target.style.background = "#f8fafc"; }}
+              />
+              <button type="submit" className="btn-primary px-6" style={{ borderRadius: 12 }}>Tìm kiếm</button>
+              <button type="button" onClick={() => setSearchOpen(false)} className="btn-secondary px-5" style={{ borderRadius: 12, border: "none", background: "#f1f5f9" }}>✕</button>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Tùy biến CSS inline cho animation underline */}
+      <style>{`
+        .nav-link { position: relative; }
+        .nav-link::after {
+          content: ''; position: absolute; bottom: 0; left: 50%; height: 3px; width: 0;
+          background: var(--accent); transition: all 0.3s ease; border-radius: 3px 3px 0 0;
+          transform: translateX(-50%);
+        }
+        .nav-link.active::after, .nav-link:hover::after { width: 100%; }
+        
+        .header-floating {
+          top: 15px; left: 50%; transform: translateX(-50%);
+          width: calc(100% - 30px); max-width: 1200px;
+          border-radius: 60px;
+          background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(20px);
+          box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0,0,0,0.05);
+          border: 1px solid rgba(255,255,255,0.4);
+        }
+        .header-top {
+          top: 0; left: 0; width: 100%;
+          border-radius: 0; background: white;
+          border-bottom: 1px solid rgba(0,0,0,0.05);
+          box-shadow: none;
+        }
+        
+        /* Dropdown fade in */
+        @keyframes menuFade {
+          from { opacity: 0; transform: translateY(10px) translateX(-50%); }
+          to { opacity: 1; transform: translateY(0) translateX(-50%); }
+        }
+        .mega-dropdown {
+          animation: menuFade 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+      `}</style>
+
+      <header className={`fixed z-[80] transition-all duration-500 flex flex-col justify-center ${scrolled ? "header-floating" : "header-top"}`}>
+        {/* Top bar - chỉ hiện khi ở trên cùng */}
+        <div 
+          className={`hidden lg:block transition-all duration-300 overflow-hidden ${scrolled ? "h-0 opacity-0" : "h-[36px] opacity-100"}`}
+          style={{ background: "#f8fafc", fontSize: "0.8125rem", color: "var(--text-muted)", borderBottom: "1px solid #f1f5f9" }}
         >
-          <div className="container">
-            <div className="flex justify-between items-center py-1.5">
-              <div className="flex items-center gap-4">
-                <span>📞 Hotline: <strong style={{ color: "#fbbf24" }}>1900 xxxx</strong></span>
-                <span>✉️ hotro@baohiem.online</span>
+          <div className="container h-full">
+            <div className="flex justify-between items-center h-full">
+              <div className="flex items-center gap-5">
+                <span className="flex items-center gap-1.5"><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg> Hotline tư vấn: <strong style={{ color: "var(--accent)" }}>1900 xxxx</strong></span>
+                <span className="flex items-center gap-1.5"><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg> hotro@baohiem.online</span>
               </div>
-              <div className="flex items-center gap-4">
-                <span>📍 TP. Hồ Chí Minh</span>
-                <Link href="/gioi-thieu/" className="hover:text-white transition-colors">Về chúng tôi</Link>
-                <Link href="/blog/" className="hover:text-white transition-colors">Tin tức</Link>
+              <div className="flex items-center gap-5">
+                <Link href="/gioi-thieu/" className="hover:text-[var(--primary)] transition-colors">Về chúng tôi</Link>
+                <Link href="/blog/" className="hover:text-[var(--primary)] transition-colors">Tin tức & Blog</Link>
               </div>
             </div>
           </div>
         </div>
 
         {/* Main header */}
-        <div className="container">
-          <div className={`flex items-center justify-between transition-all duration-300 ${scrolled ? "py-2" : "py-3"}`}>
+        <div className="w-full px-4 lg:px-6">
+          <div className={`flex items-center justify-between transition-all duration-300 ${scrolled ? "h-[70px]" : "h-[80px]"}`}>
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-2.5 flex-shrink-0">
+            <Link href="/" className="flex items-center gap-2.5 flex-shrink-0 group">
               <div
                 style={{
-                  width: 42,
-                  height: 42,
-                  borderRadius: 10,
-                  background: "linear-gradient(135deg, var(--primary) 0%, var(--blue) 100%)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  flexShrink: 0,
+                  width: scrolled ? 38 : 44,
+                  height: scrolled ? 38 : 44,
+                  borderRadius: 12,
+                  background: "linear-gradient(135deg, var(--primary) 0%, #1e3a8a 100%)",
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  flexShrink: 0, transition: "all 0.3s ease"
                 }}
+                className="group-hover:rotate-6 group-hover:scale-105 shadow-md shadow-blue-900/20"
               >
-                <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
-                  <path d="M13 2L4 6v6c0 5.5 3.8 10.7 9 12 5.2-1.3 9-6.5 9-12V6L13 2z" fill="white" opacity="0.25"/>
-                  <path d="M13 4L5.5 7.5V13c0 4.8 3.3 9.3 7.5 10.5C17.2 22.3 20.5 17.8 20.5 13V7.5L13 4z" fill="white" opacity="0.5"/>
-                  <path d="M9.5 13l2.5 2.5L16.5 11" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+                <svg width={scrolled ? "22" : "26"} height={scrolled ? "22" : "26"} viewBox="0 0 26 26" fill="none">
+                  <path d="M13 2L4 6v6c0 5.5 3.8 10.7 9 12 5.2-1.3 9-6.5 9-12V6L13 2z" fill="white" opacity="0.15"/>
+                  <path d="M13 4L5.5 7.5V13c0 4.8 3.3 9.3 7.5 10.5C17.2 22.3 20.5 17.8 20.5 13V7.5L13 4z" fill="white" opacity="0.8"/>
+                  <path d="M9.5 13l2.5 2.5L16.5 11" stroke="var(--primary)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </div>
-              <div>
-                <div style={{ fontFamily: "'Be Vietnam Pro', sans-serif", fontWeight: 800, fontSize: "1.1875rem", color: "var(--primary)", lineHeight: 1.1 }}>
+              <div className="hidden sm:block">
+                <div style={{ fontFamily: "'Be Vietnam Pro', sans-serif", fontWeight: 800, fontSize: scrolled ? "1.125rem" : "1.25rem", color: "var(--primary)", lineHeight: 1.1, letterSpacing: "-0.02em", transition: "all 0.3s" }}>
                   Bảo Hiểm
                 </div>
-                <div style={{ fontFamily: "'Be Vietnam Pro', sans-serif", fontWeight: 700, fontSize: "0.875rem", color: "var(--accent)", lineHeight: 1.1, letterSpacing: "0.02em" }}>
+                <div style={{ fontFamily: "'Be Vietnam Pro', sans-serif", fontWeight: 700, fontSize: scrolled ? "0.8125rem" : "0.875rem", color: "var(--accent)", lineHeight: 1.1, letterSpacing: "0.03em", textTransform: "uppercase", transition: "all 0.3s" }}>
                   Online
                 </div>
               </div>
             </Link>
 
             {/* Desktop Nav */}
-            <nav className="hidden lg:flex items-center gap-0.5">
+            <nav className="hidden lg:flex items-center h-full">
               {navMenu.map((item) => (
                 <div
                   key={item.id}
-                  className="relative"
+                  className="h-full font-600 flex items-center px-1 relative"
                   onMouseEnter={() => setActiveMenu(item.id)}
                   onMouseLeave={() => setActiveMenu(null)}
                 >
                   <button
-                    className={`flex items-center gap-1 px-3.5 py-2.5 text-sm font-600 rounded-lg transition-all duration-200 font-semibold ${
-                      activeMenu === item.id
-                        ? "text-[var(--accent)] bg-orange-50"
-                        : "text-slate-700 hover:text-[var(--accent)] hover:bg-orange-50"
-                    }`}
-                    style={{ fontFamily: "'Be Vietnam Pro', sans-serif", fontWeight: 600 }}
+                    className={`nav-link h-full flex items-center gap-1.5 px-3 
+                      font-semibold text-[0.9375rem] transition-colors duration-200
+                      ${activeMenu === item.id ? "text-slate-900 active" : "text-slate-600 hover:text-slate-900"}
+                    `}
+                    style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
                   >
                     {item.title}
                     <svg
-                      className={`w-3.5 h-3.5 transition-transform duration-200 ${activeMenu === item.id ? "rotate-180 text-[var(--accent)]" : "text-slate-400"}`}
+                      className={`w-3.5 h-3.5 transition-transform duration-300 ${activeMenu === item.id ? "rotate-180 text-slate-800" : "text-slate-400"}`}
                       fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}
                     >
                       <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
@@ -321,70 +374,44 @@ export default function Header() {
 
                   {/* Mega Menu Dropdown */}
                   {activeMenu === item.id && (
-                    <div
-                      className="absolute top-full left-1/2 -translate-x-1/2 mt-0 z-50"
-                      style={{ minWidth: item.megaMenu.length > 2 ? 680 : 480 }}
-                    >
-                      <div style={{ height: 8 }} />
+                    <div className="mega-dropdown absolute top-[calc(100%-8px)] pt-3 z-50 pointer-events-auto" style={{ left: '50%', transform: 'translateX(-50%)' }}>
                       <div
                         style={{
-                          background: "white",
-                          borderRadius: 16,
-                          boxShadow: "0 20px 60px rgba(0,0,0,0.13), 0 4px 16px rgba(0,0,0,0.07)",
-                          border: "1px solid #e2e8f0",
-                          overflow: "hidden",
+                          background: "rgba(255, 255, 255, 0.98)", backdropFilter: "blur(20px)",
+                          borderRadius: 24, padding: "0.5rem",
+                          boxShadow: "0 20px 40px -10px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.05)",
+                          minWidth: item.megaMenu.length > 2 ? 720 : 500,
                         }}
                       >
                         <div
                           style={{
-                            display: "grid",
-                            gridTemplateColumns: `repeat(${Math.min(item.megaMenu.length, 2)}, 1fr)`,
-                            gap: 0,
+                            display: "grid", gridTemplateColumns: `repeat(${Math.min(item.megaMenu.length, 3)}, 1fr)`,
+                            background: "white", borderRadius: 20, overflow: "hidden"
                           }}
                         >
                           {item.megaMenu.map((group, gi) => (
-                            <div
-                              key={gi}
-                              style={{
-                                padding: "1.5rem 1.75rem",
-                                borderRight: gi % 2 === 0 && gi < item.megaMenu.length - 1 ? "1px solid #f1f5f9" : "none",
-                                borderBottom: gi < item.megaMenu.length - 2 ? "1px solid #f1f5f9" : "none",
-                              }}
-                            >
+                            <div key={gi} className="p-6" style={{ background: gi % 2 !== 0 ? "#f8fafc" : "white" }}>
                               <Link
                                 href={group.groupHref}
-                                style={{
-                                  display: "block",
-                                  fontWeight: 700,
-                                  color: "var(--accent)",
-                                  fontSize: "0.9375rem",
-                                  marginBottom: "0.875rem",
-                                  fontFamily: "'Be Vietnam Pro', sans-serif",
-                                }}
-                                className="hover:opacity-80 transition-opacity"
+                                className="inline-block group/title"
+                                style={{ marginBottom: "1.25rem" }}
                               >
-                                {group.group}
+                                <span className="flex items-center gap-2 font-bold text-[0.9375rem] text-slate-800 font-['Be_Vietnam_Pro'] group-hover/title:text-[var(--accent)] transition-colors">
+                                  {group.group}
+                                  <svg className="w-4 h-4 opacity-0 -translate-x-2 transition-all group-hover/title:opacity-100 group-hover/title:translate-x-0 text-[var(--accent)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                                  </svg>
+                                </span>
                               </Link>
-                              <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+                              
+                              <ul className="flex flex-col gap-1.5">
                                 {group.items.map((sub, si) => (
                                   <li key={si}>
                                     <Link
                                       href={sub.href}
-                                      style={{
-                                        display: "flex",
-                                        alignItems: "center",
-                                        gap: "0.5rem",
-                                        fontSize: "0.875rem",
-                                        color: "#374151",
-                                        padding: "0.35rem 0",
-                                        transition: "color 0.15s",
-                                        fontFamily: "'Be Vietnam Pro', sans-serif",
-                                      }}
-                                      className="hover:text-[var(--accent)]"
+                                      className="group/link flex items-center gap-2 text-sm text-slate-600 hover:text-[var(--accent)] py-1.5 transition-colors font-['Be_Vietnam_Pro']"
                                     >
-                                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style={{ flexShrink: 0, color: "#94a3b8" }}>
-                                        <path d="M4 2l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                                      </svg>
+                                      <span className="w-1.5 h-1.5 rounded-full bg-slate-200 group-hover/link:bg-[var(--accent)] transition-colors" />
                                       {sub.title}
                                     </Link>
                                   </li>
@@ -401,11 +428,11 @@ export default function Header() {
             </nav>
 
             {/* Right actions */}
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5 sm:gap-3">
               {/* Search */}
               <button
                 onClick={() => setSearchOpen(true)}
-                className="w-9 h-9 rounded-lg flex items-center justify-center text-slate-500 hover:text-[var(--accent)] hover:bg-orange-50 transition-all"
+                className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${scrolled ? "bg-slate-100 hover:bg-slate-200 text-slate-600" : "hover:bg-slate-100 text-slate-500 hover:text-slate-900"}`}
                 aria-label="Tìm kiếm"
               >
                 <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
@@ -413,155 +440,122 @@ export default function Header() {
                 </svg>
               </button>
 
-              {/* CTA */}
-              <a href="tel:1900xxxx" className="hidden sm:flex btn-primary text-sm py-2.5 px-5">
-                <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-                </svg>
+              {/* Get advice btn */}
+              <a href="tel:1900xxxx" className="hidden lg:flex items-center justify-center btn-primary" style={{ padding: "0.625rem 1.5rem", borderRadius: 50, fontSize: "0.9375rem", background: scrolled ? "var(--primary)" : "linear-gradient(135deg, var(--accent) 0%, #c94c10 100%)", boxShadow: scrolled ? "0 4px 15px rgba(15,32,68,0.2)" : "0 4px 15px rgba(224, 92, 26, 0.3)" }}>
                 Tư vấn ngay
               </a>
 
               {/* Mobile toggle */}
               <button
-                onClick={() => setMobileOpen(!mobileOpen)}
-                className="lg:hidden w-9 h-9 rounded-lg flex items-center justify-center text-slate-600 hover:bg-slate-100 transition-all"
+                onClick={() => setMobileOpen(true)}
+                className={`lg:hidden w-10 h-10 rounded-full flex items-center justify-center transition-all ${scrolled ? "bg-slate-100 text-slate-800" : "bg-slate-50 text-slate-600"}`}
                 aria-label="Menu"
               >
-                {mobileOpen ? (
-                  <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"/>
-                  </svg>
-                ) : (
-                  <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
-                  </svg>
-                )}
+                <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+                </svg>
               </button>
             </div>
           </div>
         </div>
+      </header>
 
-        {/* Search Overlay */}
-        {searchOpen && (
-          <div className="fixed inset-0 z-[100] bg-slate-900/60 backdrop-blur-sm flex items-start justify-center pt-20 px-4">
-            <div style={{ background: "white", borderRadius: 16, width: "100%", maxWidth: 640, boxShadow: "0 25px 60px rgba(0,0,0,0.2)", overflow: "hidden" }}>
-              <form onSubmit={handleSearch} className="p-4 flex gap-3">
-                <input
-                  ref={searchRef}
-                  type="text"
-                  value={searchQ}
-                  onChange={(e) => setSearchQ(e.target.value)}
-                  placeholder="Tìm kiếm bảo hiểm, bài viết..."
-                  style={{
-                    flex: 1, border: "2px solid #e2e8f0", borderRadius: 10,
-                    padding: "0.75rem 1rem", fontSize: "1rem", outline: "none",
-                    fontFamily: "'Be Vietnam Pro', sans-serif",
-                  }}
-                  onFocus={(e) => (e.target.style.borderColor = "var(--accent)")}
-                  onBlur={(e) => (e.target.style.borderColor = "#e2e8f0")}
-                />
-                <button type="submit" className="btn-primary px-5 py-2.5">Tìm</button>
-                <button type="button" onClick={() => setSearchOpen(false)} className="btn-secondary px-4 py-2.5">✕</button>
-              </form>
-            </div>
-          </div>
-        )}
+      {/* Main content Spacer to prevent content jump */}
+      <div style={{ height: activeMenu ? 116 : 116 }} className="lg:h-[116px] h-[80px]" />
 
-        {/* Mobile Menu */}
-        {mobileOpen && (
-          <div
-            className="lg:hidden fixed inset-0 top-0 z-[90] bg-slate-900/50"
-            onClick={() => setMobileOpen(false)}
-          />
-        )}
+      {/* --- MOBILE MENU --- */}
+      {/* Backdrop */}
+      {mobileOpen && (
         <div
-          className={`lg:hidden fixed top-0 right-0 h-full z-[95] bg-white shadow-2xl transition-transform duration-300 overflow-y-auto ${
-            mobileOpen ? "translate-x-0" : "translate-x-full"
-          }`}
-          style={{ width: "min(340px, 90vw)" }}
-        >
-          <div style={{ padding: "1.25rem 1.5rem", borderBottom: "1px solid #f1f5f9", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-            <div style={{ fontWeight: 800, fontSize: "1.125rem", color: "var(--primary)", fontFamily: "'Be Vietnam Pro', sans-serif" }}>
-              Danh mục
+          className="lg:hidden fixed inset-0 z-[100] bg-slate-900/60 backdrop-blur-sm animate-fadeIn"
+          style={{ animationDuration: "0.2s" }}
+          onClick={() => setMobileOpen(false)}
+        />
+      )}
+      
+      {/* Drawer */}
+      <div
+        className={`lg:hidden fixed top-0 right-0 h-full z-[105] bg-white shadow-2xl transition-transform duration-300 ease-out flex flex-col ${
+          mobileOpen ? "translate-x-0" : "translate-x-full"
+        }`}
+        style={{ width: "min(360px, 85vw)" }}
+      >
+        <div className="p-5 flex items-center justify-between border-b border-slate-100">
+          <div className="font-['Be_Vietnam_Pro'] font-bold text-lg text-slate-800 flex items-center gap-2">
+            <div className="w-8 h-8 rounded-lg bg-orange-100 text-[var(--accent)] flex items-center justify-center">
+              <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
+              </svg>
             </div>
-            <button onClick={() => setMobileOpen(false)} style={{ width: 36, height: 36, display: "flex", alignItems: "center", justifyContent: "center", borderRadius: 8, border: "1px solid #e2e8f0", cursor: "pointer", background: "none" }}>
-              ✕
-            </button>
+            Menu
           </div>
-          <div style={{ padding: "1rem" }}>
-            {navMenu.map((item) => (
-              <div key={item.id} style={{ marginBottom: "0.25rem" }}>
-                <button
-                  onClick={() => setActiveMobile(activeMobile === item.id ? null : item.id)}
-                  style={{
-                    width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between",
-                    padding: "0.875rem 1rem", borderRadius: 10, border: "none", cursor: "pointer",
-                    background: activeMobile === item.id ? "rgba(224,92,26,0.08)" : "transparent",
-                    color: activeMobile === item.id ? "var(--accent)" : "#374151",
-                    fontWeight: 600, fontSize: "0.9375rem", fontFamily: "'Be Vietnam Pro', sans-serif",
-                    transition: "all 0.2s",
-                  }}
-                >
-                  {item.title}
-                  <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}
-                    style={{ transform: activeMobile === item.id ? "rotate(180deg)" : "none", transition: "transform 0.2s" }}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7"/>
-                  </svg>
-                </button>
-                {activeMobile === item.id && (
-                  <div style={{ padding: "0.5rem 1rem 0.75rem 1.5rem" }}>
-                    {item.megaMenu.map((group, gi) => (
-                      <div key={gi} style={{ marginBottom: "1rem" }}>
-                        <div style={{ color: "var(--accent)", fontWeight: 700, fontSize: "0.875rem", marginBottom: "0.5rem", fontFamily: "'Be Vietnam Pro', sans-serif" }}>
-                          {group.group}
-                        </div>
+          <button 
+            onClick={() => setMobileOpen(false)} 
+            className="w-10 h-10 rounded-full bg-slate-50 text-slate-500 hover:bg-slate-100 hover:text-slate-800 flex items-center justify-center transition-all"
+          >
+            <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+        
+        <div className="flex-1 overflow-y-auto px-4 py-2">
+          {navMenu.map((item) => (
+            <div key={item.id} className="mb-2">
+              <button
+                onClick={() => setActiveMobile(activeMobile === item.id ? null : item.id)}
+                className={`w-full flex items-center justify-between p-3.5 rounded-xl font-['Be_Vietnam_Pro'] font-bold transition-all ${
+                  activeMobile === item.id ? "bg-[var(--primary)] text-white shadow-md" : "bg-transparent text-slate-700 hover:bg-slate-50"
+                }`}
+              >
+                {item.title}
+                <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5} className="transition-transform duration-300" style={{ transform: activeMobile === item.id ? "rotate(180deg)" : "none" }}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7"/>
+                </svg>
+              </button>
+              
+              <div 
+                className={`overflow-hidden transition-all duration-300 ${activeMobile === item.id ? "max-h-[1000px] opacity-100 mt-2" : "max-h-0 opacity-0"}`}
+              >
+                <div className="bg-slate-50 rounded-xl p-4 border border-slate-100 flex flex-col gap-4">
+                  {item.megaMenu.map((group, gi) => (
+                    <div key={gi}>
+                      <Link href={group.groupHref} onClick={() => setMobileOpen(false)} className="inline-block text-[var(--accent)] font-bold text-[0.875rem] mb-2 font-['Be_Vietnam_Pro'] px-2">
+                        {group.group}
+                      </Link>
+                      <div className="flex flex-col">
                         {group.items.map((sub, si) => (
                           <Link
                             key={si}
                             href={sub.href}
                             onClick={() => setMobileOpen(false)}
-                            style={{
-                              display: "block", padding: "0.375rem 0", color: "#6b7280",
-                              fontSize: "0.875rem", fontFamily: "'Be Vietnam Pro', sans-serif",
-                              transition: "color 0.15s",
-                            }}
-                            className="hover:text-[var(--accent)]"
+                            className="flex items-center gap-2.5 px-2 py-2 text-sm text-slate-600 hover:text-[var(--primary)] hover:bg-white rounded-lg transition-all font-['Be_Vietnam_Pro']"
                           >
-                            › {sub.title}
+                            <span className="w-1.5 h-1.5 rounded-full border border-slate-300" />
+                            {sub.title}
                           </Link>
                         ))}
                       </div>
-                    ))}
-                  </div>
-                )}
+                    </div>
+                  ))}
+                </div>
               </div>
-            ))}
-          </div>
-          <div style={{ padding: "1rem 1.5rem", borderTop: "1px solid #f1f5f9" }}>
-            <a href="tel:1900xxxx" className="btn-primary w-full justify-center text-sm">
-              📞 Tư vấn ngay - 1900 xxxx
-            </a>
-            <Link href="/lien-he/" onClick={() => setMobileOpen(false)} className="btn-secondary w-full justify-center text-sm mt-2">
-              Liên hệ
-            </Link>
-          </div>
+            </div>
+          ))}
         </div>
-      </header>
-
-      {/* Header spacer */}
-      <div style={{ height: scrolled ? 57 : 98 }} className="transition-all duration-300" />
-
-      {/* Mobile FAB */}
-      <a
-        href="tel:1900xxxx"
-        className="lg:hidden fixed bottom-6 right-4 z-[80] btn-primary shadow-2xl text-sm"
-        style={{ borderRadius: 50, paddingLeft: "1.25rem", paddingRight: "1.25rem" }}
-      >
-        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-        </svg>
-        Tư vấn ngay
-      </a>
+        
+        <div className="p-5 border-t border-slate-100 bg-slate-50 space-y-3">
+          <a href="tel:1900xxxx" className="btn-primary w-full justify-center flex py-3 rounded-xl shadow-md">
+            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5} className="mr-2">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+            </svg>
+            Tư vấn qua điện thoại
+          </a>
+          <Link href="/lien-he/" onClick={() => setMobileOpen(false)} className="btn-secondary w-full justify-center flex py-3 rounded-xl bg-white border-transparent shadow-sm text-slate-700 hover:text-var(--primary)">
+            Liên hệ trực tuyến
+          </Link>
+        </div>
+      </div>
     </>
   );
 }
