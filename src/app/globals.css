@@ -158,33 +158,104 @@ img { max-width: 100%; height: auto; }
   border-color: transparent;
 }
 
-/* WORDPRESS CONTENT */
-.wp-content { line-height: 1.8; color: var(--text-body); }
+/* WORDPRESS CONTENT — Premium Editorial */
+.wp-content { line-height: 1.85; color: #374151; font-size: 1.0625rem; }
 .wp-content h1, .wp-content h2, .wp-content h3,
 .wp-content h4, .wp-content h5, .wp-content h6 {
-  color: var(--text-dark);
-  margin: 1.75rem 0 0.75rem;
-  font-weight: 700;
+  color: #0F172A;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-weight: 800;
+  margin: 2.25rem 0 0.875rem;
+  line-height: 1.25;
 }
-.wp-content h2 { font-size: 1.5rem; }
-.wp-content h3 { font-size: 1.25rem; }
-.wp-content p { margin-bottom: 1.25rem; }
-.wp-content ul, .wp-content ol { padding-left: 1.5rem; margin-bottom: 1.25rem; }
-.wp-content li { margin-bottom: 0.5rem; }
-.wp-content a { color: var(--blue); text-decoration: underline; }
-.wp-content img { border-radius: 12px; max-width: 100%; height: auto; margin: 1rem 0; }
-.wp-content table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.9rem; }
-.wp-content table th { background: var(--primary); color: white; padding: 0.75rem 1rem; text-align: left; }
-.wp-content table td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); }
-.wp-content table tr:nth-child(even) td { background: var(--bg-light); }
-.wp-content blockquote {
-  border-left: 4px solid var(--accent);
-  padding: 1rem 1.5rem;
+.wp-content h2 {
+  font-size: clamp(1.25rem, 2.5vw, 1.625rem);
+  padding-bottom: 0.625rem;
+  border-bottom: 2px solid #F1F5F9;
+}
+.wp-content h3 { font-size: clamp(1.125rem, 2vw, 1.375rem); }
+.wp-content h4 { font-size: 1.125rem; }
+.wp-content p { margin-bottom: 1.375rem; color: #374151; }
+.wp-content ul, .wp-content ol { padding-left: 1.625rem; margin-bottom: 1.375rem; }
+.wp-content li { margin-bottom: 0.625rem; line-height: 1.7; }
+.wp-content ul li::marker { color: #E05C1A; }
+.wp-content ol li::marker { color: #E05C1A; font-weight: 700; }
+.wp-content a { color: #1D4ED8; text-decoration: underline; text-underline-offset: 3px; }
+.wp-content a:hover { color: #E05C1A; }
+.wp-content img {
+  border-radius: 16px;
+  max-width: 100%;
+  height: auto;
   margin: 1.5rem 0;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.1);
+}
+.wp-content strong { color: #0F172A; font-weight: 700; }
+.wp-content em { color: #475569; }
+.wp-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2rem 0;
+  font-size: 0.9375rem;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+}
+.wp-content table th {
+  background: #0F2044;
+  color: white;
+  padding: 0.875rem 1.25rem;
+  text-align: left;
+  font-weight: 700;
+  font-size: 0.875rem;
+}
+.wp-content table td {
+  padding: 0.875rem 1.25rem;
+  border-bottom: 1px solid #F1F5F9;
+  color: #374151;
+}
+.wp-content table tr:nth-child(even) td { background: #F8FAFC; }
+.wp-content table tr:hover td { background: #FFF7ED; }
+.wp-content blockquote {
+  border-left: 4px solid #E05C1A;
+  padding: 1.25rem 1.75rem;
+  margin: 2rem 0;
   background: rgba(224, 92, 26, 0.05);
-  border-radius: 0 8px 8px 0;
+  border-radius: 0 12px 12px 0;
   font-style: italic;
-  color: var(--text-muted);
+  color: #4B5563;
+  position: relative;
+}
+.wp-content blockquote::before {
+  content: '"';
+  position: absolute;
+  top: -0.5rem;
+  left: 1rem;
+  font-size: 4rem;
+  color: rgba(224, 92, 26, 0.15);
+  font-family: Georgia, serif;
+  line-height: 1;
+}
+.wp-content pre, .wp-content code {
+  background: #0F172A;
+  color: #E2E8F0;
+  border-radius: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.875rem;
+}
+.wp-content pre { padding: 1.25rem 1.5rem; overflow-x: auto; margin: 1.5rem 0; }
+.wp-content hr {
+  border: none;
+  border-top: 2px solid #F1F5F9;
+  margin: 2.5rem 0;
+}
+/* Highlighted box from WP */
+.wp-content .wp-block-info,
+.wp-content .notice {
+  background: #EFF6FF;
+  border-left: 4px solid #3B82F6;
+  padding: 1rem 1.5rem;
+  border-radius: 0 10px 10px 0;
+  margin: 1.5rem 0;
 }
 
 /* ANIMATIONS */
