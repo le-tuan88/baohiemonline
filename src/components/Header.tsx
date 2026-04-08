@@ -480,7 +480,7 @@ export default function Header() {
         <div className="absolute top-0 right-0 w-64 h-64 bg-[var(--accent)] rounded-full mix-blend-screen filter blur-[80px] opacity-20 pointer-events-none" />
         
         {/* Header */}
-        <div className="relative z-10 px-6 py-5 flex items-center justify-between border-b border-white/10">
+        <div className="relative z-10 flex items-center justify-between border-b border-white/10" style={{ padding: "1.25rem 1.5rem" }}>
           <div className="font-['Be_Vietnam_Pro'] font-black text-xl text-white tracking-tight flex items-center gap-2">
             <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[var(--accent)] to-orange-400 text-white flex items-center justify-center">
               <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
@@ -500,7 +500,7 @@ export default function Header() {
         </div>
         
         {/* Navigation List */}
-        <div className="relative z-10 flex-1 overflow-y-auto px-6 py-4 pb-32">
+        <div className="relative z-10 flex-1 overflow-y-auto" style={{ padding: "1rem 1.5rem 8rem 1.5rem" }}>
           {navMenu.map((item) => (
             <div key={item.id} className="border-b border-white/5">
               <button
@@ -518,7 +518,8 @@ export default function Header() {
               </button>
               
               <div 
-                className={`overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${activeMobile === item.id ? "max-h-[1000px] opacity-100 mb-5" : "max-h-0 opacity-0"}`}
+                className={`overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${activeMobile === item.id ? "opacity-100 mb-5" : "max-h-0 opacity-0"}`}
+                style={{ maxHeight: activeMobile === item.id ? "1000px" : "0px" }}
               >
                 <div className="flex flex-col gap-6 pl-2 border-l border-white/10 ml-2">
                   {item.megaMenu.map((group, gi) => (
@@ -558,7 +559,7 @@ export default function Header() {
         </div>
         
         {/* Bottom Actions Fixed */}
-        <div className="relative z-10 p-6 border-t border-white/10 bg-[#0A1128]/90 backdrop-blur-xl space-y-3">
+        <div className="relative z-10 border-t border-white/10 bg-[#0A1128]/90 backdrop-blur-xl space-y-3" style={{ padding: "1.5rem" }}>
           <a href="tel:1900xxxx" className="btn-primary w-full justify-center flex py-4 rounded-xl text-[1.0625rem] shadow-[0_10px_30px_rgba(224,92,26,0.3)] border-none">
             <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5} className="mr-2">
               <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
