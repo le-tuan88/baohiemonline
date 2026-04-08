@@ -470,75 +470,71 @@ export default function Header() {
       {/* Main content Spacer to prevent content jump */}
       <div className="lg:h-[116px] h-[80px]" />
 
-      {/* --- MOBILE MENU --- */}
-      {/* Backdrop */}
-      {mobileOpen && (
-        <div
-          className="lg:hidden fixed inset-0 z-[100] bg-slate-900/60 backdrop-blur-sm animate-fadeIn"
-          style={{ animationDuration: "0.2s" }}
-          onClick={() => setMobileOpen(false)}
-        />
-      )}
-      
-      {/* Drawer */}
+      {/* --- PREMIUM MOBILE MENU --- */}
       <div
-        className={`lg:hidden fixed top-0 right-0 h-full z-[105] bg-white shadow-2xl transition-transform duration-300 ease-out flex flex-col ${
+        className={`lg:hidden fixed inset-0 z-[110] bg-[#0A1128] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] flex flex-col ${
           mobileOpen ? "translate-x-0" : "translate-x-full"
         }`}
-        style={{ width: "min(360px, 85vw)" }}
       >
-        <div className="p-5 flex items-center justify-between border-b border-slate-100">
-          <div className="font-['Be_Vietnam_Pro'] font-bold text-lg text-slate-800 flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-orange-100 text-[var(--accent)] flex items-center justify-center">
-              <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
+        {/* Decorative ambient light */}
+        <div className="absolute top-0 right-0 w-64 h-64 bg-[var(--accent)] rounded-full mix-blend-screen filter blur-[80px] opacity-20 pointer-events-none" />
+        
+        {/* Header */}
+        <div className="relative z-10 px-6 py-5 flex items-center justify-between border-b border-white/10">
+          <div className="font-['Be_Vietnam_Pro'] font-black text-xl text-white tracking-tight flex items-center gap-2">
+            <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[var(--accent)] to-orange-400 text-white flex items-center justify-center">
+              <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
               </svg>
             </div>
-            Menu
+            Khám phá
           </div>
           <button 
             onClick={() => setMobileOpen(false)} 
-            className="w-10 h-10 rounded-full bg-slate-50 text-slate-500 hover:bg-slate-100 hover:text-slate-800 flex items-center justify-center transition-all"
+            className="w-10 h-10 rounded-full bg-white/10 text-white hover:bg-white/20 flex items-center justify-center transition-all backdrop-blur-md"
           >
-            <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+            <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"/>
             </svg>
           </button>
         </div>
         
-        <div className="flex-1 overflow-y-auto px-4 py-2">
+        {/* Navigation List */}
+        <div className="relative z-10 flex-1 overflow-y-auto px-6 py-4 pb-32">
           {navMenu.map((item) => (
-            <div key={item.id} className="mb-2">
+            <div key={item.id} className="border-b border-white/5">
               <button
                 onClick={() => setActiveMobile(activeMobile === item.id ? null : item.id)}
-                className={`w-full flex items-center justify-between p-3.5 rounded-xl font-['Be_Vietnam_Pro'] font-bold transition-all ${
-                  activeMobile === item.id ? "bg-[var(--primary)] text-white shadow-md" : "bg-transparent text-slate-700 hover:bg-slate-50"
-                }`}
+                className="w-full py-5 flex items-center justify-between text-left transition-colors"
               >
-                {item.title}
-                <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5} className="transition-transform duration-300" style={{ transform: activeMobile === item.id ? "rotate(180deg)" : "none" }}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7"/>
-                </svg>
+                <span className={`font-['Be_Vietnam_Pro'] font-bold text-2xl transition-colors duration-300 ${activeMobile === item.id ? "text-[var(--accent)]" : "text-white"}`}>
+                  {item.title}
+                </span>
+                <span className={`flex items-center justify-center w-8 h-8 rounded-full transition-all duration-300 ${activeMobile === item.id ? "bg-[var(--accent)]/10 text-[var(--accent)] rotate-180" : "bg-white/5 text-white/50"}`}>
+                  <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7"/>
+                  </svg>
+                </span>
               </button>
               
               <div 
-                className={`overflow-hidden transition-all duration-300 ${activeMobile === item.id ? "max-h-[1000px] opacity-100 mt-2" : "max-h-0 opacity-0"}`}
+                className={`overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${activeMobile === item.id ? "max-h-[1000px] opacity-100 mb-5" : "max-h-0 opacity-0"}`}
               >
-                <div className="bg-slate-50 rounded-xl p-4 border border-slate-100 flex flex-col gap-4">
+                <div className="flex flex-col gap-6 pl-2 border-l border-white/10 ml-2">
                   {item.megaMenu.map((group, gi) => (
-                    <div key={gi}>
-                      <Link href={group.groupHref} onClick={() => setMobileOpen(false)} className="inline-block text-[var(--accent)] font-bold text-[0.875rem] mb-2 font-['Be_Vietnam_Pro'] px-2">
+                    <div key={gi} className="pl-4">
+                      <Link href={group.groupHref} onClick={() => setMobileOpen(false)} className="inline-block text-white/90 font-bold text-[1.0625rem] mb-3 font-['Be_Vietnam_Pro'] tracking-wide">
                         {group.group}
                       </Link>
-                      <div className="flex flex-col">
+                      <div className="flex flex-col gap-3">
                         {group.items.map((sub, si) => (
                           <Link
                             key={si}
                             href={sub.href}
                             onClick={() => setMobileOpen(false)}
-                            className="flex items-center gap-2.5 px-2 py-2 text-sm text-slate-600 hover:text-[var(--primary)] hover:bg-white rounded-lg transition-all font-['Be_Vietnam_Pro']"
+                            className="flex items-center gap-3 text-base text-white/60 hover:text-white transition-colors"
                           >
-                            <span className="w-1.5 h-1.5 rounded-full border border-slate-300" />
+                            <span className="w-1.5 h-1.5 rounded-full bg-white/20" />
                             {sub.title}
                           </Link>
                         ))}
@@ -549,17 +545,28 @@ export default function Header() {
               </div>
             </div>
           ))}
+          
+          <div className="py-8">
+            <Link 
+              href="/blog/" 
+              onClick={() => setMobileOpen(false)}
+              className="font-['Be_Vietnam_Pro'] font-bold text-xl text-white/80 hover:text-white flex items-center justify-between"
+            >
+              Tin tức & Bài viết
+            </Link>
+          </div>
         </div>
         
-        <div className="p-5 border-t border-slate-100 bg-slate-50 space-y-3">
-          <a href="tel:1900xxxx" className="btn-primary w-full justify-center flex py-3 rounded-xl shadow-md">
-            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5} className="mr-2">
+        {/* Bottom Actions Fixed */}
+        <div className="relative z-10 p-6 border-t border-white/10 bg-[#0A1128]/90 backdrop-blur-xl space-y-3">
+          <a href="tel:1900xxxx" className="btn-primary w-full justify-center flex py-4 rounded-xl text-[1.0625rem] shadow-[0_10px_30px_rgba(224,92,26,0.3)] border-none">
+            <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5} className="mr-2">
               <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
             </svg>
-            Tư vấn qua điện thoại
+            Gọi hỗ trợ: 1900 xxxx
           </a>
-          <Link href="/lien-he/" onClick={() => setMobileOpen(false)} className="btn-secondary w-full justify-center flex py-3 rounded-xl bg-white border-transparent shadow-sm text-slate-700 hover:text-var(--primary)">
-            Liên hệ trực tuyến
+          <Link href="/lien-he/" onClick={() => setMobileOpen(false)} className="w-full justify-center flex items-center py-4 rounded-xl bg-white/5 border border-white/10 text-white hover:bg-white/10 font-bold transition-all text-[0.9375rem]">
+            Để lại thông tin
           </Link>
         </div>
       </div>
