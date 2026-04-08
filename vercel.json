@@ -1,0 +1,12 @@
+{
+  "framework": "nextjs",
+  "buildCommand": "npm run build",
+  "outputDirectory": ".next",
+  "installCommand": "npm install",
+  "env": {
+    "NEXT_PUBLIC_WORDPRESS_URL": "@wp_graphql_url",
+    "NEXT_PUBLIC_BASE_URL": "@base_url",
+    "WORDPRESS_DOMAIN": "@wordpress_domain",
+    "REVALIDATE_TOKEN": "@revalidate_token"
+  }
+}

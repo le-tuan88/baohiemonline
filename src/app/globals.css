@@ -1,26 +1,206 @@
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --primary: #0F2044;
+  --primary-light: #1a3560;
+  --accent: #E05C1A;
+  --accent-light: #f47340;
+  --blue: #1D4ED8;
+  --blue-light: #3B82F6;
+  --teal: #0D9488;
+  --gold: #F59E0B;
+  --text-dark: #0F172A;
+  --text-body: #374151;
+  --text-muted: #6B7280;
+  --bg-light: #F8FAFC;
+  --bg-section: #F1F5F9;
+  --border: #E2E8F0;
+  --white: #FFFFFF;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Be Vietnam Pro', 'Inter', system-ui, sans-serif;
+  color: var(--text-body);
+  background: var(--white);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Be Vietnam Pro', sans-serif;
+  color: var(--text-dark);
+  line-height: 1.25;
+  font-weight: 700;
+}
+
+h1 { font-size: clamp(1.75rem, 4vw, 2.75rem); }
+h2 { font-size: clamp(1.5rem, 3vw, 2.25rem); }
+h3 { font-size: clamp(1.25rem, 2.5vw, 1.75rem); }
+h4 { font-size: 1.125rem; }
+
+p { line-height: 1.75; color: var(--text-body); }
+a { color: inherit; text-decoration: none; }
+a:hover { color: var(--accent); }
+img { max-width: 100%; height: auto; }
+
+/* LAYOUT */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+@media (min-width: 640px) { .container { padding: 0 1.5rem; } }
+@media (min-width: 1024px) { .container { padding: 0 2rem; } }
+
+/* BUTTONS */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, var(--accent) 0%, #c94c10 100%);
+  color: white;
+  font-weight: 700;
+  padding: 0.75rem 1.75rem;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9375rem;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 15px rgba(224, 92, 26, 0.35);
+  font-family: 'Be Vietnam Pro', sans-serif;
+  text-decoration: none;
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(224, 92, 26, 0.45);
+  color: white;
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: white;
+  color: var(--primary);
+  font-weight: 700;
+  padding: 0.75rem 1.75rem;
+  border-radius: 50px;
+  border: 2px solid var(--border);
+  cursor: pointer;
+  font-size: 0.9375rem;
+  transition: all 0.25s ease;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  text-decoration: none;
+}
+.btn-secondary:hover {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: white;
+}
+
+/* SECTION HEADERS */
+.section-badge {
+  display: inline-block;
+  background: rgba(224, 92, 26, 0.08);
+  color: var(--accent);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  padding: 0.35rem 1rem;
+  border-radius: 50px;
+  border: 1px solid rgba(224, 92, 26, 0.2);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.section-title {
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 800;
+  color: var(--text-dark);
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+.section-title span { color: var(--accent); }
+
+.section-desc {
+  color: var(--text-muted);
+  font-size: 1.0625rem;
+  max-width: 600px;
+  line-height: 1.7;
+}
+
+/* CARDS */
+.card {
+  background: white;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  display: block;
+  text-decoration: none;
+}
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+  border-color: transparent;
+}
+
+/* WORDPRESS CONTENT */
+.wp-content { line-height: 1.8; color: var(--text-body); }
+.wp-content h1, .wp-content h2, .wp-content h3,
+.wp-content h4, .wp-content h5, .wp-content h6 {
+  color: var(--text-dark);
+  margin: 1.75rem 0 0.75rem;
+  font-weight: 700;
+}
+.wp-content h2 { font-size: 1.5rem; }
+.wp-content h3 { font-size: 1.25rem; }
+.wp-content p { margin-bottom: 1.25rem; }
+.wp-content ul, .wp-content ol { padding-left: 1.5rem; margin-bottom: 1.25rem; }
+.wp-content li { margin-bottom: 0.5rem; }
+.wp-content a { color: var(--blue); text-decoration: underline; }
+.wp-content img { border-radius: 12px; max-width: 100%; height: auto; margin: 1rem 0; }
+.wp-content table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.9rem; }
+.wp-content table th { background: var(--primary); color: white; padding: 0.75rem 1rem; text-align: left; }
+.wp-content table td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); }
+.wp-content table tr:nth-child(even) td { background: var(--bg-light); }
+.wp-content blockquote {
+  border-left: 4px solid var(--accent);
+  padding: 1rem 1.5rem;
+  margin: 1.5rem 0;
+  background: rgba(224, 92, 26, 0.05);
+  border-radius: 0 8px 8px 0;
+  font-style: italic;
+  color: var(--text-muted);
+}
+
+/* ANIMATIONS */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+.animate-fadeInUp { animation: fadeInUp 0.5s ease both; }
+.animate-float { animation: float 3s ease-in-out infinite; }
+
+/* SCROLLBAR */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #f1f5f9; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }

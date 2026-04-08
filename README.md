@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# baohiem.online - Next.js Frontend
+# Backend WordPress: quanly.baohiem.online
 
-## Getting Started
+## Tech Stack
+- **Frontend**: Next.js 15 (App Router) + TypeScript
+- **Styling**: Tailwind CSS v4 + Custom CSS
+- **Backend CMS**: WordPress Headless (WPGraphQL)
+- **SEO**: Rank Math SEO + WPGraphQL for Rank Math SEO
+- **Webhook**: WP Webhooks → Vercel ISR Revalidation
+- **Deploy**: Vercel
 
-First, run the development server:
+## Setup
 
 ```bash
+npm install
+cp .env.example .env.local
+# fill in your env vars
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Env Variables
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+NEXT_PUBLIC_WORDPRESS_URL=https://quanly.baohiem.online/graphql
+NEXT_PUBLIC_BASE_URL=https://baohiem.online
+WORDPRESS_DOMAIN=quanly.baohiem.online
+REVALIDATE_TOKEN=your_secret_here
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## WordPress Config
 
-## Learn More
+- Permalink: `/%postname%/`
+- WPGraphQL: enabled
+- Rank Math SEO + WPGraphQL for Rank Math: enabled
+- WP Webhooks: POST to `https://baohiem.online/api/revalidate?token=YOUR_TOKEN`
 
-To learn more about Next.js, take a look at the following resources:
+## Features
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- ✅ Full mega menu (Sức khỏe, Xe cơ giới, Du lịch, Tai nạn, Nhân thọ, BH khác)
+- ✅ Mobile-responsive with slide-out drawer menu
+- ✅ Headless WordPress with WPGraphQL
+- ✅ ISR revalidation via webhook
+- ✅ Dynamic SEO from Rank Math
+- ✅ sitemap.xml + robots.txt
+- ✅ Search functionality
