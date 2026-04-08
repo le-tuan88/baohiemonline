@@ -26,7 +26,7 @@ export default function PviToChucPage() {
         { icon: "🛡️", value: "Tới 2 Tỷ", label: "Mức trách nhiệm BOD" },
         { icon: "🌐", value: "Chuẩn Quốc Tế", label: "Kiểm toán bồi thường" },
         { icon: "💸", value: "Tối ưu Thuế", label: "Doanh nghiệp lớn" },
-        { icon: "👨‍👩‍👧‍👦", title: "Mở rộng", label: "Bảo hiểm cho Gia đình NLĐ" }
+        { icon: "👨‍👩‍👧‍👦", value: "Mở rộng", label: "Bảo hiểm cho Gia đình NLĐ" }
       ]}
       benefits={[
         { icon: "🤝", title: "Khẳng định văn hóa tập đoàn", desc: "Không có gì thể hiện sự quan tâm nhân tài của Ban Lãnh đạo tốt hơn việc phát hành Thẻ Khám Chữa bệnh VIP cho nhân viên. Thẻ PVI là một 'thẻ bài' tự hào trong ví nhân viên phòng Lab, IT, Bankers." },

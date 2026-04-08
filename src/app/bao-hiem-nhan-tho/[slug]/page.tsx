@@ -54,8 +54,9 @@ const dataMap: Record<string, any> = {
   }
 };
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const item = dataMap[params.slug];
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const item = dataMap[slug];
   if (!item) return { title: "Không tìm thấy chương trình" };
   
   if (item.isBrand) {
@@ -71,8 +72,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-export default function NhanThoDynamicPage({ params }: { params: { slug: string } }) {
-  const item = dataMap[params.slug];
+export default async function NhanThoDynamicPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const item = dataMap[slug];
   if (!item) notFound();
 
   // If it's a brand 

@@ -8,8 +8,9 @@ const brandsMap: Record<string, {name: string, color: string}> = {
   "mic": { name: "MIC", color: "#1565C0" }
 };
 
-export async function generateMetadata({ params }: { params: { brand: string } }): Promise<Metadata> {
-  const brandData = brandsMap[params.brand];
+export async function generateMetadata({ params }: { params: Promise<{ brand: string }> }): Promise<Metadata> {
+  const { brand } = await params;
+  const brandData = brandsMap[brand];
   if (!brandData) return { title: "Không tìm thấy" };
   return {
     title: `Bảo hiểm Xe máy ${brandData.name} - Ấn chỉ điện tử 66k`,
@@ -17,8 +18,9 @@ export async function generateMetadata({ params }: { params: { brand: string } }
   };
 }
 
-export default function TndsXeMayBrandPage({ params }: { params: { brand: string } }) {
-  const brandData = brandsMap[params.brand];
+export default async function TndsXeMayBrandPage({ params }: { params: Promise<{ brand: string }> }) {
+  const { brand } = await params;
+  const brandData = brandsMap[brand];
   
   if (!brandData) {
     notFound();

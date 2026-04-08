@@ -11,8 +11,9 @@ const brandsMap: Record<string, {name: string, color: string}> = {
   "dbv": { name: "VBI", color: "#065F46" } 
 };
 
-export async function generateMetadata({ params }: { params: { brand: string } }): Promise<Metadata> {
-  const brandData = brandsMap[params.brand];
+export async function generateMetadata({ params }: { params: Promise<{ brand: string }> }): Promise<Metadata> {
+  const { brand } = await params;
+  const brandData = brandsMap[brand];
   if (!brandData) return { title: "Không tìm thấy" };
   return {
     title: `Bảo hiểm TNDS Ô tô Bắt buộc ${brandData.name} - Cấp nhanh`,
@@ -20,8 +21,9 @@ export async function generateMetadata({ params }: { params: { brand: string } }
   };
 }
 
-export default function TndsOToBrandPage({ params }: { params: { brand: string } }) {
-  const brandData = brandsMap[params.brand];
+export default async function TndsOToBrandPage({ params }: { params: Promise<{ brand: string }> }) {
+  const { brand } = await params;
+  const brandData = brandsMap[brand];
   
   if (!brandData) {
     notFound();

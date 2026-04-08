@@ -10,8 +10,9 @@ const brandsMap: Record<string, {name: string, color: string}> = {
   "bao-minh": { name: "Bảo Minh", color: "#16A34A" }
 };
 
-export async function generateMetadata({ params }: { params: { brand: string } }): Promise<Metadata> {
-  const brandData = brandsMap[params.brand];
+export async function generateMetadata({ params }: { params: Promise<{ brand: string }> }): Promise<Metadata> {
+  const { brand } = await params;
+  const brandData = brandsMap[brand];
   if (!brandData) return { title: "Không tìm thấy" };
   return {
     title: `Bảo hiểm Du lịch Trong Nước ${brandData.name} - Mua Nhóm Phượt`,
@@ -19,8 +20,9 @@ export async function generateMetadata({ params }: { params: { brand: string } }
   };
 }
 
-export default function DuLichTrongNuocBrandPage({ params }: { params: { brand: string } }) {
-  const brandData = brandsMap[params.brand];
+export default async function DuLichTrongNuocBrandPage({ params }: { params: Promise<{ brand: string }> }) {
+  const { brand } = await params;
+  const brandData = brandsMap[brand];
   
   if (!brandData) {
     notFound();

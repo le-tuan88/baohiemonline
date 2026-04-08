@@ -11,8 +11,9 @@ const brandsMap: Record<string, {name: string, color: string, badge: string}> = 
   "dbv": { name: "VBI", color: "#065F46", badge: "Online" } 
 };
 
-export async function generateMetadata({ params }: { params: { brand: string } }): Promise<Metadata> {
-  const brandData = brandsMap[params.brand];
+export async function generateMetadata({ params }: { params: Promise<{ brand: string }> }): Promise<Metadata> {
+  const { brand } = await params;
+  const brandData = brandsMap[brand];
   if (!brandData) return { title: "Không tìm thấy" };
   return {
     title: `Bảo hiểm Vật chất Ô tô ${brandData.name} - Mua Online`,
@@ -20,8 +21,9 @@ export async function generateMetadata({ params }: { params: { brand: string } }
   };
 }
 
-export default function VatChatOToBrandPage({ params }: { params: { brand: string } }) {
-  const brandData = brandsMap[params.brand];
+export default async function VatChatOToBrandPage({ params }: { params: Promise<{ brand: string }> }) {
+  const { brand } = await params;
+  const brandData = brandsMap[brand];
   
   if (!brandData) {
     notFound();

@@ -58,13 +58,13 @@ export interface InsuranceProductPageProps {
   coverageHeaders?: string[];
 
   // Process
-  steps: { icon: string; title: string; desc: string }[];
+  steps?: { icon: string; title: string; desc: string }[];
 
   // Why us
   whyUs?: { icon: string; title: string; desc: string }[];
 
   // FAQ
-  faqs: FAQItem[];
+  faqs?: FAQItem[];
 
   // Related
   related?: RelatedProduct[];
@@ -337,41 +337,43 @@ export default function InsuranceProductPage(props: InsuranceProductPageProps) {
       )}
 
       {/* ===== HOW IT WORKS ===== */}
-      <section style={{ padding: "4.5rem 0", background: "white" }}>
-        <div className="container">
-          <div style={{ textAlign: "center", marginBottom: "3rem" }}>
-            <span style={{ color: accentColor, fontSize: "0.8125rem", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase" }}>Quy trình</span>
-            <h2 style={{ fontFamily: "'Be Vietnam Pro', sans-serif", fontWeight: 900, fontSize: "clamp(1.5rem, 3.5vw, 2rem)", color: "#0F2044", marginTop: "0.5rem" }}>
-              Mua bảo hiểm chỉ trong 3 bước
-            </h2>
-          </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))", gap: "2rem" }}>
-            {steps.map((step, i) => (
-              <div key={i} style={{ textAlign: "center" }}>
-                <div style={{
-                  width: 72, height: 72, borderRadius: "50%",
-                  background: `linear-gradient(135deg, ${accentColor}15, ${accentColor}30)`,
-                  border: `2px solid ${accentColor}30`,
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                  fontSize: "1.75rem", margin: "0 auto 1.25rem",
-                  position: "relative",
-                }}>
-                  {step.icon}
-                  <span style={{
-                    position: "absolute", top: -8, right: -8,
-                    width: 24, height: 24, borderRadius: "50%",
-                    background: accentColor, color: "white",
-                    fontSize: "0.75rem", fontWeight: 800,
+      {steps && steps.length > 0 && (
+        <section style={{ padding: "4.5rem 0", background: "white" }}>
+          <div className="container">
+            <div style={{ textAlign: "center", marginBottom: "3rem" }}>
+              <span style={{ color: accentColor, fontSize: "0.8125rem", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase" }}>Quy trình</span>
+              <h2 style={{ fontFamily: "'Be Vietnam Pro', sans-serif", fontWeight: 900, fontSize: "clamp(1.5rem, 3.5vw, 2rem)", color: "#0F2044", marginTop: "0.5rem" }}>
+                Mua bảo hiểm chỉ trong 3 bước
+              </h2>
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))", gap: "2rem" }}>
+              {steps.map((step, i) => (
+                <div key={i} style={{ textAlign: "center" }}>
+                  <div style={{
+                    width: 72, height: 72, borderRadius: "50%",
+                    background: `linear-gradient(135deg, ${accentColor}15, ${accentColor}30)`,
+                    border: `2px solid ${accentColor}30`,
                     display: "flex", alignItems: "center", justifyContent: "center",
-                  }}>{i + 1}</span>
+                    fontSize: "1.75rem", margin: "0 auto 1.25rem",
+                    position: "relative",
+                  }}>
+                    {step.icon}
+                    <span style={{
+                      position: "absolute", top: -8, right: -8,
+                      width: 24, height: 24, borderRadius: "50%",
+                      background: accentColor, color: "white",
+                      fontSize: "0.75rem", fontWeight: 800,
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                    }}>{i + 1}</span>
+                  </div>
+                  <h3 style={{ fontFamily: "'Be Vietnam Pro', sans-serif", fontWeight: 800, fontSize: "1rem", color: "#0F2044", marginBottom: "0.5rem" }}>{step.title}</h3>
+                  <p style={{ color: "#64748B", fontSize: "0.9rem", lineHeight: 1.65 }}>{step.desc}</p>
                 </div>
-                <h3 style={{ fontFamily: "'Be Vietnam Pro', sans-serif", fontWeight: 800, fontSize: "1rem", color: "#0F2044", marginBottom: "0.5rem" }}>{step.title}</h3>
-                <p style={{ color: "#64748B", fontSize: "0.9rem", lineHeight: 1.65 }}>{step.desc}</p>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* ===== WHY US ===== */}
       {whyUs && whyUs.length > 0 && (
@@ -397,17 +399,19 @@ export default function InsuranceProductPage(props: InsuranceProductPageProps) {
       )}
 
       {/* ===== FAQ ===== */}
-      <section style={{ padding: "4.5rem 0", background: "white" }}>
-        <div className="container" style={{ maxWidth: 780 }}>
-          <div style={{ textAlign: "center", marginBottom: "3rem" }}>
-            <span style={{ color: accentColor, fontSize: "0.8125rem", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase" }}>FAQ</span>
-            <h2 style={{ fontFamily: "'Be Vietnam Pro', sans-serif", fontWeight: 900, fontSize: "clamp(1.5rem, 3.5vw, 2rem)", color: "#0F2044", marginTop: "0.5rem" }}>
-              Câu hỏi thường gặp
-            </h2>
+      {faqs && faqs.length > 0 && (
+        <section style={{ padding: "4.5rem 0", background: "white" }}>
+          <div className="container" style={{ maxWidth: 780 }}>
+            <div style={{ textAlign: "center", marginBottom: "3rem" }}>
+              <span style={{ color: accentColor, fontSize: "0.8125rem", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase" }}>FAQ</span>
+              <h2 style={{ fontFamily: "'Be Vietnam Pro', sans-serif", fontWeight: 900, fontSize: "clamp(1.5rem, 3.5vw, 2rem)", color: "#0F2044", marginTop: "0.5rem" }}>
+                Câu hỏi thường gặp
+              </h2>
+            </div>
+            <FAQAccordion items={faqs} accentColor={accentColor} />
           </div>
-          <FAQAccordion items={faqs} accentColor={accentColor} />
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* ===== RELATED ===== */}
       {related && related.length > 0 && (
